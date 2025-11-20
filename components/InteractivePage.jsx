@@ -25,6 +25,7 @@ export default function InteractivePage({
   const [adType, setAdType] = useState(initialAdType);
   const [currentDemoContent, setCurrentDemoContent] = useState(demoContent);
   const [isLoadingDemoContent, setIsLoadingDemoContent] = useState(false);
+  const [currentTeamMembers, setCurrentTeamMembers] = useState(teamMembers);
   const [isBuyModalOpen, setIsBuyModalOpen] = useState(false);
   const [isCustomPlanModalOpen, setIsCustomPlanModalOpen] = useState(false);
   const [buyModalData, setBuyModalData] = useState({
@@ -63,16 +64,17 @@ export default function InteractivePage({
     }
   };
 
-  // Fetch fresh demo content on initial mount (client-side) to ensure signed URLs are valid
+  // Fetch fresh demo content and team members on initial mount (client-side) to ensure signed URLs are valid
   useEffect(() => {
-    const fetchInitialDemoContent = async () => {
+    const fetchInitialData = async () => {
+      // Fetch demo content
       try {
         setIsLoadingDemoContent(true);
         // Use initialAdType to fetch the correct content type on mount
-        const response = await api.getDemoContent(initialAdType);
+        const demoResponse = await api.getDemoContent(initialAdType);
         
-        if (response.success && response.contents) {
-          setCurrentDemoContent(response.contents);
+        if (demoResponse.success && demoResponse.contents) {
+          setCurrentDemoContent(demoResponse.contents);
         } else {
           // Fallback to server-provided content if API fails
           setCurrentDemoContent(demoContent);
@@ -84,10 +86,26 @@ export default function InteractivePage({
       } finally {
         setIsLoadingDemoContent(false);
       }
+
+      // Fetch team members
+      try {
+        const teamResponse = await api.getTeamMembers();
+        
+        if (teamResponse.success && teamResponse.teamMembers) {
+          setCurrentTeamMembers(teamResponse.teamMembers);
+        } else {
+          // Fallback to server-provided team members if API fails
+          setCurrentTeamMembers(teamMembers);
+        }
+      } catch (error) {
+        console.error('Error fetching team members on mount:', error);
+        // Fallback to server-provided team members on error
+        setCurrentTeamMembers(teamMembers);
+      }
     };
 
-    // Always fetch fresh content on mount to ensure signed URLs are valid
-    fetchInitialDemoContent();
+    // Always fetch fresh data on mount to ensure signed URLs are valid
+    fetchInitialData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []); // Only run on mount - we intentionally don't include dependencies
 
@@ -128,7 +146,7 @@ export default function InteractivePage({
       <WhyBuySection adType={adType} />
       <TeamSection 
         adType={adType}
-        teamMembers={teamMembers}
+        teamMembers={currentTeamMembers}
       />
       <TestimonialsSection adType={adType} />
       <FAQSection adType={adType} />
