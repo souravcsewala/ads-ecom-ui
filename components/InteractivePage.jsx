@@ -63,10 +63,33 @@ export default function InteractivePage({
     }
   };
 
-  // Initialize demo content on mount
+  // Fetch fresh demo content on initial mount (client-side) to ensure signed URLs are valid
   useEffect(() => {
-    setCurrentDemoContent(demoContent);
-  }, [demoContent]);
+    const fetchInitialDemoContent = async () => {
+      try {
+        setIsLoadingDemoContent(true);
+        // Use initialAdType to fetch the correct content type on mount
+        const response = await api.getDemoContent(initialAdType);
+        
+        if (response.success && response.contents) {
+          setCurrentDemoContent(response.contents);
+        } else {
+          // Fallback to server-provided content if API fails
+          setCurrentDemoContent(demoContent);
+        }
+      } catch (error) {
+        console.error('Error fetching demo content on mount:', error);
+        // Fallback to server-provided content on error
+        setCurrentDemoContent(demoContent);
+      } finally {
+        setIsLoadingDemoContent(false);
+      }
+    };
+
+    // Always fetch fresh content on mount to ensure signed URLs are valid
+    fetchInitialDemoContent();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []); // Only run on mount - we intentionally don't include dependencies
 
   // Listen for buy modal events from Header
   useEffect(() => {
