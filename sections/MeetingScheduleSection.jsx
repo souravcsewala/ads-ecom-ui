@@ -1,0 +1,228 @@
+'use client';
+
+import { useState } from 'react';
+import { api } from '../lib/api';
+
+export default function MeetingScheduleSection() {
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    contact: '',
+    company: '',
+    meetingDate: '',
+    meetingTime: '',
+    message: '',
+  });
+  const [isLoading, setIsLoading] = useState(false);
+  const [success, setSuccess] = useState(false);
+  const [error, setError] = useState('');
+
+  const handleInputChange = (field, value) => {
+    setFormData((prev) => ({
+      ...prev,
+      [field]: value,
+    }));
+  };
+
+  const getMinDate = () => {
+    const today = new Date();
+    return today.toISOString().split('T')[0];
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setIsLoading(true);
+    setError('');
+    setSuccess(false);
+
+    try {
+      // Create a meeting request using the new API
+      const meetingData = {
+        customerName: formData.name,
+        customerEmail: formData.email,
+        customerContact: formData.contact,
+        customerCompany: formData.company,
+        meetingDate: formData.meetingDate,
+        meetingTime: formData.meetingTime,
+        message: formData.message,
+      };
+
+      const response = await api.createMeetingRequest(meetingData);
+
+      if (response.success) {
+        setSuccess(true);
+        // Reset form
+        setFormData({
+          name: '',
+          email: '',
+          contact: '',
+          company: '',
+          meetingDate: '',
+          meetingTime: '',
+          message: '',
+        });
+        // Hide success message after 5 seconds
+        setTimeout(() => {
+          setSuccess(false);
+        }, 5000);
+      } else {
+        setError(response.message || 'Failed to submit meeting request. Please try again.');
+      }
+    } catch (err) {
+      console.error('Meeting request submission error:', err);
+      const errorMessage = err.response?.data?.message || err.message || 'An unexpected error occurred.';
+      setError(errorMessage);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  return (
+    <section id="meeting-schedule" className="py-20 bg-gradient-to-b from-purple-50 to-white">
+      <div className="container mx-auto px-6">
+        <div className="max-w-3xl mx-auto">
+          <div className="text-center mb-12">
+            <h2 className="text-4xl font-bold text-gray-900 mb-4">
+              Are You Interested in Direct Contact?
+            </h2>
+            <p className="text-lg text-gray-600">
+              Schedule a meeting with our team to discuss your ad requirements and get personalized recommendations.
+            </p>
+          </div>
+
+          <div className="bg-white rounded-2xl shadow-xl p-8 border-2 border-purple-100">
+            {success && (
+              <div className="mb-6 p-4 bg-green-50 border border-green-200 rounded-lg text-green-700 text-sm">
+                ✓ Meeting request submitted successfully! We will contact you shortly to confirm the schedule.
+              </div>
+            )}
+
+            {error && (
+              <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg text-red-700 text-sm">
+                {error}
+              </div>
+            )}
+
+            <form onSubmit={handleSubmit} className="space-y-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                  <label className="block text-sm font-semibold text-gray-900 mb-2">
+                    Full Name <span className="text-red-500">*</span>
+                  </label>
+                  <input
+                    type="text"
+                    value={formData.name}
+                    onChange={(e) => handleInputChange('name', e.target.value)}
+                    placeholder="Enter your full name"
+                    required
+                    className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-purple-600 focus:outline-none transition-colors"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-sm font-semibold text-gray-900 mb-2">
+                    Email <span className="text-red-500">*</span>
+                  </label>
+                  <input
+                    type="email"
+                    value={formData.email}
+                    onChange={(e) => handleInputChange('email', e.target.value)}
+                    placeholder="Enter your email"
+                    required
+                    className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-purple-600 focus:outline-none transition-colors"
+                  />
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                  <label className="block text-sm font-semibold text-gray-900 mb-2">
+                    Contact Number <span className="text-red-500">*</span>
+                  </label>
+                  <input
+                    type="tel"
+                    value={formData.contact}
+                    onChange={(e) => handleInputChange('contact', e.target.value)}
+                    placeholder="Enter your contact number"
+                    required
+                    className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-purple-600 focus:outline-none transition-colors"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-sm font-semibold text-gray-900 mb-2">
+                    Company Name
+                  </label>
+                  <input
+                    type="text"
+                    value={formData.company}
+                    onChange={(e) => handleInputChange('company', e.target.value)}
+                    placeholder="Enter your company name (optional)"
+                    className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-purple-600 focus:outline-none transition-colors"
+                  />
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                  <label className="block text-sm font-semibold text-gray-900 mb-2">
+                    Preferred Meeting Date <span className="text-red-500">*</span>
+                  </label>
+                  <input
+                    type="date"
+                    value={formData.meetingDate}
+                    onChange={(e) => handleInputChange('meetingDate', e.target.value)}
+                    min={getMinDate()}
+                    required
+                    className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-purple-600 focus:outline-none transition-colors"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-sm font-semibold text-gray-900 mb-2">
+                    Preferred Meeting Time <span className="text-red-500">*</span>
+                  </label>
+                  <input
+                    type="time"
+                    value={formData.meetingTime}
+                    onChange={(e) => handleInputChange('meetingTime', e.target.value)}
+                    required
+                    className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-purple-600 focus:outline-none transition-colors"
+                  />
+                </div>
+              </div>
+
+              <div>
+                <label className="block text-sm font-semibold text-gray-900 mb-2">
+                  Additional Message
+                </label>
+                <textarea
+                  value={formData.message}
+                  onChange={(e) => handleInputChange('message', e.target.value)}
+                  placeholder="Tell us about your requirements or any specific questions you'd like to discuss..."
+                  rows={4}
+                  className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-purple-600 focus:outline-none transition-colors resize-y"
+                />
+              </div>
+
+              <button
+                type="submit"
+                disabled={isLoading}
+                className="w-full px-8 py-4 bg-gradient-to-r from-purple-600 to-indigo-600 text-white rounded-lg font-semibold text-lg hover:from-purple-700 hover:to-indigo-700 transition-all shadow-md hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                {isLoading ? 'Submitting...' : 'Schedule Meeting'}
+              </button>
+            </form>
+          </div>
+
+          <div className="mt-8 text-center">
+            <p className="text-sm text-gray-500">
+              By scheduling a meeting, you agree to be contacted by our team. We respect your privacy and will only use your information for communication purposes.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
