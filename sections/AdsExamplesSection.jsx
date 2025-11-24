@@ -41,32 +41,63 @@ export default function AdsExamplesSection({ adType, demoContent = [], isLoading
   // Auto-scroll functionality
   useEffect(() => {
     const container = scrollContainerRef.current;
-    if (!container || examples.length === 0) return;
+    if (!container || examples.length === 0) {
+      return;
+    }
 
-    // Reset scroll position and pause state when adType changes
+    // Cancel any existing animation frame
+    if (autoScrollRef.current.animationFrameId) {
+      cancelAnimationFrame(autoScrollRef.current.animationFrameId);
+    }
+
+    // Reset scroll position and pause state
     container.scrollLeft = 0;
     autoScrollRef.current.isPaused = false;
 
-    let scrollPosition = 0;
-    const scrollSpeed = 1; // pixels per frame
-
-    const scroll = () => {
-      if (!autoScrollRef.current.isPaused) {
-        scrollPosition += scrollSpeed;
-        
-        // Reset scroll position when reaching the end (loop back to start)
-        const maxScroll = container.scrollWidth - container.clientWidth;
-        if (scrollPosition >= maxScroll) {
-          scrollPosition = 0;
-        }
-        
-        container.scrollLeft = scrollPosition;
+    // Function to start auto-scroll
+    const startAutoScroll = () => {
+      if (!container) return;
+      
+      // Check if container has scrollable content
+      const maxScroll = container.scrollWidth - container.clientWidth;
+      if (maxScroll <= 0) {
+        return false; // Not scrollable yet
       }
+
+      let scrollPosition = 0;
+      const scrollSpeed = 1; // pixels per frame
+
+      const scroll = () => {
+        if (!autoScrollRef.current.isPaused && container) {
+          scrollPosition += scrollSpeed;
+          
+          // Reset scroll position when reaching the end (loop back to start)
+          const currentMaxScroll = container.scrollWidth - container.clientWidth;
+          if (currentMaxScroll > 0 && scrollPosition >= currentMaxScroll) {
+            scrollPosition = 0;
+          }
+          
+          container.scrollLeft = scrollPosition;
+        }
+        autoScrollRef.current.animationFrameId = requestAnimationFrame(scroll);
+      };
+
+      // Start scrolling immediately
       autoScrollRef.current.animationFrameId = requestAnimationFrame(scroll);
+      return true;
     };
 
-    // Start scrolling immediately
-    autoScrollRef.current.animationFrameId = requestAnimationFrame(scroll);
+    // Use requestAnimationFrame to wait for next paint cycle, ensuring DOM is ready
+    let retryTimers = [];
+    const rafId = requestAnimationFrame(() => {
+      // Try starting immediately after paint
+      if (!startAutoScroll()) {
+        // If not ready, retry with increasing delays
+        retryTimers.push(setTimeout(() => startAutoScroll(), 200));
+        retryTimers.push(setTimeout(() => startAutoScroll(), 500));
+        retryTimers.push(setTimeout(() => startAutoScroll(), 1000));
+      }
+    });
 
     // Pause on hover
     const handleMouseEnter = () => {
@@ -81,13 +112,15 @@ export default function AdsExamplesSection({ adType, demoContent = [], isLoading
     container.addEventListener('mouseleave', handleMouseLeave);
 
     return () => {
+      cancelAnimationFrame(rafId);
+      retryTimers.forEach(timer => clearTimeout(timer));
       if (autoScrollRef.current.animationFrameId) {
         cancelAnimationFrame(autoScrollRef.current.animationFrameId);
       }
       container.removeEventListener('mouseenter', handleMouseEnter);
       container.removeEventListener('mouseleave', handleMouseLeave);
     };
-  }, [examples.length, adType]);
+  }, [examples.length, adType, demoContent, isLoading]);
 
   // Manual navigation functions
   const scrollLeft = () => {
