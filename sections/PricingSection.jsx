@@ -164,7 +164,7 @@ export default function PricingSection({ adType, onBuyClick, plans: serverPlans 
               <button
                 key={type}
                 onClick={() => onAdTypeChange(type)}
-                className={`px-6 py-2 rounded-full text-sm font-semibold transition-all ${
+                className={`px-6 py-2 rounded-full text-sm font-semibold transition-all cursor-pointer ${
                   adType === type
                     ? 'bg-gradient-to-r from-blue-500 to-indigo-500 text-white shadow-md'
                     : 'text-gray-600 hover:text-blue-600'
@@ -222,7 +222,7 @@ export default function PricingSection({ adType, onBuyClick, plans: serverPlans 
                   const numberOfAds = plan.numberOfAds || null;
                   onBuyClick(plan.cta, plan.price, plan.planId, numberOfAds);
                 }}
-                className={`w-full px-6 py-3 text-white rounded-lg font-semibold transition-all shadow-md hover:shadow-lg ${
+                className={`w-full px-6 py-3 text-white rounded-lg font-semibold transition-all shadow-md hover:shadow-lg cursor-pointer ${
                   plan.popular
                     ? 'bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700'
                     : 'bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700'
@@ -250,7 +250,7 @@ export default function PricingSection({ adType, onBuyClick, plans: serverPlans 
             </div>
             <button
               onClick={() => onBuyClick('Custom Plan', 'Contact for pricing', null, null)}
-              className="w-full px-6 py-3 bg-white border-2 border-purple-600 text-purple-600 rounded-lg font-semibold hover:bg-purple-50 transition-all shadow-md hover:shadow-lg"
+              className="w-full px-6 py-3 bg-white border-2 border-purple-600 text-purple-600 rounded-lg font-semibold hover:bg-purple-50 transition-all shadow-md hover:shadow-lg cursor-pointer"
             >
               Fill Custom Plan
             </button>

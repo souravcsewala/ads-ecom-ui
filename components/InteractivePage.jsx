@@ -7,6 +7,7 @@ import HeroSection from '../sections/HeroSection';
 import MeetingScheduleSection from '../sections/MeetingScheduleSection';
 import AdsExamplesSection from '../sections/AdsExamplesSection';
 import WhyChooseSection from '../sections/WhyChooseSection';
+import PromoBannerSection from '../sections/PromoBannerSection';
 import PricingSection from '../sections/PricingSection';
 import HowItWorksSection from '../sections/HowItWorksSection';
 import WhyBuySection from '../sections/WhyBuySection';
@@ -135,6 +136,7 @@ export default function InteractivePage({
         onAdTypeChange={handleAdTypeChange}
       />
       <WhyChooseSection adType={adType} />
+      <PromoBannerSection onBuyClick={() => openBuyModal()} />
       <PricingSection 
         adType={adType}
         onBuyClick={openBuyModal}
@@ -150,7 +152,7 @@ export default function InteractivePage({
       />
       <TestimonialsSection adType={adType} />
       <FAQSection adType={adType} />
-      <Footer adType={adType} />
+      <Footer adType={adType} onBuyClick={() => openBuyModal()} />
       <BuyFormModal
         isOpen={isBuyModalOpen}
         onClose={() => setIsBuyModalOpen(false)}

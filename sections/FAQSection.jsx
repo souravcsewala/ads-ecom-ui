@@ -58,7 +58,7 @@ export default function FAQSection({ adType }) {
             <div key={index} className="bg-purple-50/50 rounded-xl border-2 border-gray-200 overflow-hidden">
               <button
                 onClick={() => toggleFAQ(index)}
-                className="w-full px-6 py-4 text-left flex items-center justify-between hover:bg-purple-50 transition-colors"
+                className="w-full px-6 py-4 text-left flex items-center justify-between hover:bg-purple-50 transition-colors cursor-pointer"
               >
                 <span className="font-semibold text-gray-900 pr-4">{faq.question}</span>
                 <svg

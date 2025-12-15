@@ -166,7 +166,7 @@ export default function AdsExamplesSection({ adType, demoContent = [], isLoading
               <button
                 key={type}
                 onClick={() => onAdTypeChange(type)}
-                className={`px-6 py-2 rounded-full text-sm font-semibold transition-all ${
+                className={`px-6 py-2 rounded-full text-sm font-semibold transition-all cursor-pointer ${
                   adType === type
                     ? 'bg-gradient-to-r from-purple-600 to-indigo-600 text-white shadow-md'
                     : 'text-gray-600 hover:text-purple-600'
@@ -187,7 +187,7 @@ export default function AdsExamplesSection({ adType, demoContent = [], isLoading
             {/* Left Arrow Button */}
             <button
               onClick={scrollLeft}
-              className="absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-white/90 hover:bg-white rounded-full p-3 shadow-lg hover:shadow-xl transition-all backdrop-blur-sm border border-purple-200"
+              className="absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-white/90 hover:bg-white rounded-full p-3 shadow-lg hover:shadow-xl transition-all backdrop-blur-sm border border-purple-200 cursor-pointer"
               aria-label="Scroll left"
             >
               <svg className="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -198,7 +198,7 @@ export default function AdsExamplesSection({ adType, demoContent = [], isLoading
             {/* Right Arrow Button */}
             <button
               onClick={scrollRight}
-              className="absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-white/90 hover:bg-white rounded-full p-3 shadow-lg hover:shadow-xl transition-all backdrop-blur-sm border border-purple-200"
+              className="absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-white/90 hover:bg-white rounded-full p-3 shadow-lg hover:shadow-xl transition-all backdrop-blur-sm border border-purple-200 cursor-pointer"
               aria-label="Scroll right"
             >
               <svg className="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -322,7 +322,7 @@ export default function AdsExamplesSection({ adType, demoContent = [], isLoading
           >
             <button
               onClick={() => setZoomImage(null)}
-              className="absolute top-4 right-4 text-white bg-black/60 hover:bg-black/80 rounded-full p-2"
+              className="absolute top-4 right-4 text-white bg-black/60 hover:bg-black/80 rounded-full p-2 cursor-pointer"
               aria-label="Close"
             >
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">

@@ -1,10 +1,6 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
-
 export default function TeamSection({ adType, teamMembers: serverTeamMembers = [] }) {
-  const scrollContainerRef = useRef(null);
-  const autoScrollRef = useRef({ isPaused: false, animationFrameId: null });
   const isVideo = adType === 'video';
 
   // Use server team members if available, otherwise fallback to hardcoded
@@ -33,143 +29,78 @@ export default function TeamSection({ adType, teamMembers: serverTeamMembers = [
       }))
     : fallbackTeamMembers;
 
-  // Auto-scroll functionality
-  useEffect(() => {
-    const container = scrollContainerRef.current;
-    if (!container || teamMembers.length === 0) return;
-
-    let scrollPosition = 0;
-    const scrollSpeed = 0.5; // pixels per frame
-
-    const scroll = () => {
-      if (!autoScrollRef.current.isPaused) {
-        scrollPosition += scrollSpeed;
-        
-        // Reset scroll position when reaching the end (loop back to start)
-        const maxScroll = container.scrollWidth - container.clientWidth;
-        if (scrollPosition >= maxScroll) {
-          scrollPosition = 0;
-        }
-        
-        container.scrollLeft = scrollPosition;
-      }
-      autoScrollRef.current.animationFrameId = requestAnimationFrame(scroll);
-    };
-
-    // Start scrolling
-    autoScrollRef.current.animationFrameId = requestAnimationFrame(scroll);
-
-    // Pause on hover
-    const handleMouseEnter = () => {
-      autoScrollRef.current.isPaused = true;
-    };
-
-    const handleMouseLeave = () => {
-      autoScrollRef.current.isPaused = false;
-    };
-
-    container.addEventListener('mouseenter', handleMouseEnter);
-    container.addEventListener('mouseleave', handleMouseLeave);
-
-    return () => {
-      if (autoScrollRef.current.animationFrameId) {
-        cancelAnimationFrame(autoScrollRef.current.animationFrameId);
-      }
-      container.removeEventListener('mouseenter', handleMouseEnter);
-      container.removeEventListener('mouseleave', handleMouseLeave);
-    };
-  }, [teamMembers.length, adType]);
-
-  // Manual navigation functions
-  const scrollLeft = () => {
-    const container = scrollContainerRef.current;
-    if (!container) return;
-    
-    autoScrollRef.current.isPaused = true;
-    const scrollAmount = container.clientWidth * 0.8; // Scroll 80% of container width
-    container.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
-    
-    // Resume auto-scroll after a delay
-    setTimeout(() => {
-      autoScrollRef.current.isPaused = false;
-    }, 2000);
-  };
-
-  const scrollRight = () => {
-    const container = scrollContainerRef.current;
-    if (!container) return;
-    
-    autoScrollRef.current.isPaused = true;
-    const scrollAmount = container.clientWidth * 0.8; // Scroll 80% of container width
-    container.scrollBy({ left: scrollAmount, behavior: 'smooth' });
-    
-    // Resume auto-scroll after a delay
-    setTimeout(() => {
-      autoScrollRef.current.isPaused = false;
-    }, 2000);
-  };
-
   return (
-    <section id="team" className="py-20 bg-gradient-to-b from-purple-50/30 to-purple-50">
-      <div className="container mx-auto px-6">
-        <div className="text-center max-w-3xl mx-auto mb-12">
-          <h2 className="text-4xl font-bold text-gray-900 mb-4">
+    <section id="team" className="py-20 bg-gradient-to-b from-purple-50 via-white to-purple-50 relative overflow-hidden">
+      {/* Decorative Background Elements */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute top-20 left-10 w-64 h-64 bg-purple-200/20 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-20 right-10 w-80 h-80 bg-indigo-200/20 rounded-full blur-3xl"></div>
+      </div>
+
+      <div className="container mx-auto px-6 relative z-10">
+        <div className="text-center max-w-3xl mx-auto mb-16">
+          <div className="inline-block mb-4">
+            <span className="px-4 py-2 bg-gradient-to-r from-purple-500 to-indigo-500 text-white rounded-full text-sm font-semibold shadow-lg">
+              Our Team
+            </span>
+          </div>
+          <h2 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-purple-900 via-purple-700 to-indigo-700 bg-clip-text text-transparent mb-6">
             Meet Our Creative Team
           </h2>
-          <p className="text-lg text-gray-600">
+          <p className="text-lg md:text-xl text-gray-600 leading-relaxed">
             The talented professionals behind every successful ad campaign - each bringing their unique expertise to create content that converts.
           </p>
         </div>
 
-        <div className="relative">
-          {/* Left Arrow Button */}
-          <button
-            onClick={scrollLeft}
-            className="absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-white/90 hover:bg-white rounded-full p-3 shadow-lg hover:shadow-xl transition-all backdrop-blur-sm border border-purple-200"
-            aria-label="Scroll left"
-          >
-            <svg className="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-            </svg>
-          </button>
-
-          {/* Right Arrow Button */}
-          <button
-            onClick={scrollRight}
-            className="absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-white/90 hover:bg-white rounded-full p-3 shadow-lg hover:shadow-xl transition-all backdrop-blur-sm border border-purple-200"
-            aria-label="Scroll right"
-          >
-            <svg className="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-            </svg>
-          </button>
-
-          <div 
-            ref={scrollContainerRef}
-            className="flex gap-8 overflow-x-hidden scrollbar-hide"
-            style={{ scrollBehavior: 'auto' }}
-          >
-            {teamMembers.map((member, index) => (
-              <div key={`${index}-${member.name || index}`} className="relative group flex-shrink-0 text-center w-full md:w-[calc(33.333%-1.5rem)] min-w-[280px] max-w-[350px]">
-                <div className="w-32 h-32 rounded-full bg-gradient-to-br from-purple-400 to-indigo-500 mx-auto mb-4 flex items-center justify-center shadow-lg overflow-hidden">
-                  {member.image?.url ? (
-                    <img 
-                      src={member.image.url} 
-                      alt={member.name}
-                      className="w-full h-full object-cover"
-                    />
-                  ) : (
-                    <span className="text-4xl font-bold text-white">{member.name[0]}</span>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+          {teamMembers.map((member, index) => (
+            <div 
+              key={`${index}-${member.name || index}`} 
+              className="relative group"
+            >
+              {/* Card */}
+              <div className="bg-white rounded-2xl p-8 shadow-xl hover:shadow-2xl transition-all duration-300 border-2 border-purple-100 hover:border-purple-300 relative overflow-hidden">
+                {/* Decorative gradient overlay on hover */}
+                <div className="absolute inset-0 bg-gradient-to-br from-purple-50/0 to-indigo-50/0 group-hover:from-purple-50/50 group-hover:to-indigo-50/50 transition-all duration-300"></div>
+                
+                <div className="relative z-10 text-center">
+                  {/* Profile Image */}
+                  <div className="relative mb-6 inline-block">
+                    <div className="w-32 h-32 rounded-full bg-gradient-to-br from-purple-400 via-indigo-500 to-purple-600 mx-auto flex items-center justify-center shadow-2xl overflow-hidden ring-4 ring-purple-100 group-hover:ring-purple-300 transition-all duration-300 transform group-hover:scale-105">
+                      {member.image?.url ? (
+                        <img 
+                          src={member.image.url} 
+                          alt={member.name}
+                          className="w-full h-full object-cover"
+                        />
+                      ) : (
+                        <span className="text-5xl font-bold text-white">{member.name[0]}</span>
+                      )}
+                    </div>
+                    {/* Decorative circle behind image */}
+                    <div className="absolute inset-0 rounded-full bg-gradient-to-br from-purple-300 to-indigo-400 blur-xl opacity-50 -z-10 group-hover:opacity-70 transition-opacity"></div>
+                  </div>
+                  
+                  {/* Name */}
+                  <h3 className="text-2xl font-bold text-gray-900 mb-2 group-hover:text-purple-700 transition-colors">
+                    {member.name}
+                  </h3>
+                  
+                  {/* Role */}
+                  <div className="inline-block px-4 py-2 bg-gradient-to-r from-purple-100 to-indigo-100 rounded-full mb-4">
+                    <p className="text-purple-700 font-semibold text-sm">{member.role}</p>
+                  </div>
+                  
+                  {/* Bio */}
+                  {member.bio && (
+                    <p className="text-gray-600 mt-4 leading-relaxed text-sm">
+                      {member.bio}
+                    </p>
                   )}
                 </div>
-                <h3 className="text-xl font-bold text-gray-900 mb-2">{member.name}</h3>
-                <p className="text-purple-600 font-semibold">{member.role}</p>
-                {member.bio && (
-                  <p className="text-sm text-gray-600 mt-2 line-clamp-2">{member.bio}</p>
-                )}
               </div>
-            ))}
-          </div>
+            </div>
+          ))}
         </div>
       </div>
     </section>

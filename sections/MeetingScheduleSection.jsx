@@ -78,19 +78,46 @@ export default function MeetingScheduleSection() {
   };
 
   return (
-    <section id="meeting-schedule" className="py-20 bg-gradient-to-b from-purple-50 to-white">
-      <div className="container mx-auto px-6">
-        <div className="max-w-3xl mx-auto">
-          <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">
+    <section id="meeting-schedule" className="py-20 bg-gradient-to-br from-purple-900 via-indigo-900 to-purple-800 w-full relative overflow-hidden">
+      {/* Decorative Background Shapes */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        {/* Large Blurred Circles */}
+        <div className="absolute top-0 left-0 w-96 h-96 bg-purple-500/20 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-0 right-0 w-96 h-96 bg-indigo-500/20 rounded-full blur-3xl"></div>
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-pink-500/10 rounded-full blur-3xl"></div>
+        
+        {/* Geometric Shapes */}
+        <div className="absolute top-20 right-20 w-32 h-32 bg-purple-400/10 rounded-lg rotate-45 blur-xl"></div>
+        <div className="absolute bottom-32 left-32 w-24 h-24 bg-indigo-400/10 rounded-full blur-xl"></div>
+        <div className="absolute top-1/3 right-1/4 w-40 h-40 bg-purple-300/10 rounded-lg rotate-12 blur-2xl"></div>
+        <div className="absolute bottom-1/4 left-1/3 w-36 h-36 bg-pink-400/10 rounded-full blur-xl"></div>
+        
+        {/* Animated Floating Shapes */}
+        <div className="absolute top-10 left-10 w-20 h-20 bg-purple-300/20 rounded-full blur-lg animate-pulse"></div>
+        <div className="absolute bottom-20 right-10 w-16 h-16 bg-indigo-300/20 rounded-full blur-lg animate-pulse" style={{ animationDelay: '1s' }}></div>
+        <div className="absolute top-1/2 right-1/4 w-12 h-12 bg-pink-300/20 rounded-full blur-md animate-pulse" style={{ animationDelay: '0.5s' }}></div>
+        
+        {/* Grid Pattern Overlay */}
+        <div className="absolute inset-0 opacity-5" style={{
+          backgroundImage: 'linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)',
+          backgroundSize: '50px 50px'
+        }}></div>
+      </div>
+
+      <div className="container mx-auto px-6 relative z-10">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          {/* Left Side - Heading and Subheading */}
+          <div className="text-white relative z-10">
+            <h2 className="text-4xl md:text-5xl font-bold mb-6 leading-tight">
               Are You Interested in Direct Contact?
             </h2>
-            <p className="text-lg text-gray-600">
+            <p className="text-lg md:text-xl text-purple-100 leading-relaxed">
               Schedule a meeting with our team to discuss your ad requirements and get personalized recommendations.
             </p>
           </div>
 
-          <div className="bg-white rounded-2xl shadow-xl p-8 border-2 border-purple-100">
+          {/* Right Side - Form */}
+          <div className="bg-white rounded-2xl shadow-2xl p-8 border-2 border-purple-200">
             {success && (
               <div className="mb-6 p-4 bg-green-50 border border-green-200 rounded-lg text-green-700 text-sm">
                 ✓ Meeting request submitted successfully! We will contact you shortly to confirm the schedule.
@@ -208,17 +235,17 @@ export default function MeetingScheduleSection() {
               <button
                 type="submit"
                 disabled={isLoading}
-                className="w-full px-8 py-4 bg-gradient-to-r from-purple-600 to-indigo-600 text-white rounded-lg font-semibold text-lg hover:from-purple-700 hover:to-indigo-700 transition-all shadow-md hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
+                className="w-full px-8 py-4 bg-gradient-to-r from-purple-600 to-indigo-600 text-white rounded-lg font-semibold text-lg hover:from-purple-700 hover:to-indigo-700 transition-all shadow-md hover:shadow-lg cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {isLoading ? 'Submitting...' : 'Schedule Meeting'}
               </button>
             </form>
-          </div>
 
-          <div className="mt-8 text-center">
-            <p className="text-sm text-gray-500">
-              By scheduling a meeting, you agree to be contacted by our team. We respect your privacy and will only use your information for communication purposes.
-            </p>
+            <div className="mt-6 text-center">
+              <p className="text-sm text-gray-500">
+                By scheduling a meeting, you agree to be contacted by our team. We respect your privacy and will only use your information for communication purposes.
+              </p>
+            </div>
           </div>
         </div>
       </div>
