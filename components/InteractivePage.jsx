@@ -14,10 +14,11 @@ import WhyBuySection from '../sections/WhyBuySection';
 import TeamSection from '../sections/TeamSection';
 import TestimonialsSection from '../sections/TestimonialsSection';
 import FAQSection from '../sections/FAQSection';
+import PortfolioSection from '../sections/portfolio';
 import Footer from '../sections/Footer';
 import { api } from '../lib/api';
 
-export default function InteractivePage({ 
+export default function InteractivePage({
   plans = [],
   demoContent = [],
   teamMembers = [],
@@ -49,11 +50,11 @@ export default function InteractivePage({
   // Fetch demo content when adType changes
   const handleAdTypeChange = async (newAdType) => {
     setAdType(newAdType);
-    
+
     try {
       setIsLoadingDemoContent(true);
       const response = await api.getDemoContent(newAdType);
-      
+
       if (response.success && response.contents) {
         setCurrentDemoContent(response.contents);
       }
@@ -73,7 +74,7 @@ export default function InteractivePage({
         setIsLoadingDemoContent(true);
         // Use initialAdType to fetch the correct content type on mount
         const demoResponse = await api.getDemoContent(initialAdType);
-        
+
         if (demoResponse.success && demoResponse.contents) {
           setCurrentDemoContent(demoResponse.contents);
         } else {
@@ -91,7 +92,7 @@ export default function InteractivePage({
       // Fetch team members
       try {
         const teamResponse = await api.getTeamMembers();
-        
+
         if (teamResponse.success && teamResponse.teamMembers) {
           setCurrentTeamMembers(teamResponse.teamMembers);
         } else {
@@ -124,12 +125,12 @@ export default function InteractivePage({
 
   return (
     <>
-      <HeroSection 
-        adType={adType} 
+      <HeroSection
+        adType={adType}
         onAdTypeChange={handleAdTypeChange}
         onBuyClick={() => openBuyModal()}
       />
-      <AdsExamplesSection 
+      <AdsExamplesSection
         adType={adType}
         demoContent={currentDemoContent}
         isLoading={isLoadingDemoContent}
@@ -137,7 +138,9 @@ export default function InteractivePage({
       />
       <WhyChooseSection adType={adType} />
       <PromoBannerSection onBuyClick={() => openBuyModal()} />
-      <PricingSection 
+      <PortfolioSection />
+
+      <PricingSection
         adType={adType}
         onBuyClick={openBuyModal}
         plans={plans}
@@ -146,7 +149,7 @@ export default function InteractivePage({
       <MeetingScheduleSection />
       <HowItWorksSection adType={adType} />
       <WhyBuySection adType={adType} />
-      <TeamSection 
+      <TeamSection
         adType={adType}
         teamMembers={currentTeamMembers}
       />

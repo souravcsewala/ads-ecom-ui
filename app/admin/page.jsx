@@ -220,6 +220,13 @@ export default function AdminDashboard() {
             <div className="font-semibold text-gray-900">Demo Content</div>
             <div className="text-sm text-gray-600 mt-1">Manage demo images/videos</div>
           </a>
+          <a
+            href="/admin/portfolio"
+            className="p-4 border-2 border-pink-200 rounded-lg hover:border-pink-500 hover:bg-pink-50 transition-colors"
+          >
+            <div className="font-semibold text-gray-900">Portfolio</div>
+            <div className="text-sm text-gray-600 mt-1">Manage Performance-Driven Designs</div>
+          </a>
         </div>
       </div>
     </div>

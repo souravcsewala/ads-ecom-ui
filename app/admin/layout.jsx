@@ -104,6 +104,7 @@ export default function AdminLayout({ children }) {
     { href: '/admin', label: 'Dashboard', icon: '📊' },
     { href: '/admin/plans', label: 'Plans', icon: '💰' },
     { href: '/admin/demo-content', label: 'Demo Content', icon: '🖼️' },
+    { href: '/admin/portfolio', label: 'Portfolio', icon: '🎨' },
     { href: '/admin/team', label: 'Team', icon: '👥' },
     { href: '/admin/orders', label: 'Orders', icon: '📦' },
     { href: '/admin/meeting-requests', label: 'Meeting Requests', icon: '📞' },

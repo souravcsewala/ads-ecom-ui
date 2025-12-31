@@ -2,40 +2,40 @@
 
 import { useState, useEffect, useRef } from 'react';
 
-export default function AdsExamplesSection({ adType, demoContent = [], isLoading = false, onAdTypeChange = () => {} }) {
+export default function AdsExamplesSection({ adType, demoContent = [], isLoading = false, onAdTypeChange = () => { } }) {
   const [zoomImage, setZoomImage] = useState(null);
   const scrollContainerRef = useRef(null);
   const autoScrollRef = useRef({ isPaused: false, animationFrameId: null });
   const isVideo = adType === 'video';
-  
+
   // Use server demo content if available, otherwise fallback to hardcoded
   const hasDemoContent = demoContent && demoContent.length > 0;
-  
+
   const filteredDemoContent = hasDemoContent
     ? demoContent.filter(content => content.contentType === adType && content.isActive)
     : [];
-  
+
   // Fallback hardcoded examples
-  const fallbackExamples = isVideo 
+  const fallbackExamples = isVideo
     ? [
-        { title: 'Beauty Brand Video Ads' },
-        { title: 'E-commerce Product Videos' },
-        { title: 'Home Decor Videos' },
-      ]
+      { title: 'Beauty Brand Video Ads' },
+      { title: 'E-commerce Product Videos' },
+      { title: 'Home Decor Videos' },
+    ]
     : [
-        { title: 'Beauty Brand Static Ads' },
-        { title: 'E-commerce Product Images' },
-        { title: 'Home Decor Images' },
-      ];
-  
+      { title: 'Beauty Brand Static Ads' },
+      { title: 'E-commerce Product Images' },
+      { title: 'Home Decor Images' },
+    ];
+
   const examples = hasDemoContent && filteredDemoContent.length > 0
     ? filteredDemoContent.map(content => ({
-        title: content.title,
-        description: content.description,
-        imageUrl: content.imageUrl,
-        videoUrl: content.videoUrl,
-        thumbnailUrl: content.thumbnailUrl,
-      }))
+      title: content.title,
+      description: content.description,
+      imageUrl: content.imageUrl,
+      videoUrl: content.videoUrl,
+      thumbnailUrl: content.thumbnailUrl,
+    }))
     : fallbackExamples;
 
   // Auto-scroll functionality
@@ -57,7 +57,7 @@ export default function AdsExamplesSection({ adType, demoContent = [], isLoading
     // Function to start auto-scroll
     const startAutoScroll = () => {
       if (!container) return;
-      
+
       // Check if container has scrollable content
       const maxScroll = container.scrollWidth - container.clientWidth;
       if (maxScroll <= 0) {
@@ -70,13 +70,13 @@ export default function AdsExamplesSection({ adType, demoContent = [], isLoading
       const scroll = () => {
         if (!autoScrollRef.current.isPaused && container) {
           scrollPosition += scrollSpeed;
-          
+
           // Reset scroll position when reaching the end (loop back to start)
           const currentMaxScroll = container.scrollWidth - container.clientWidth;
           if (currentMaxScroll > 0 && scrollPosition >= currentMaxScroll) {
             scrollPosition = 0;
           }
-          
+
           container.scrollLeft = scrollPosition;
         }
         autoScrollRef.current.animationFrameId = requestAnimationFrame(scroll);
@@ -126,11 +126,11 @@ export default function AdsExamplesSection({ adType, demoContent = [], isLoading
   const scrollLeft = () => {
     const container = scrollContainerRef.current;
     if (!container) return;
-    
+
     autoScrollRef.current.isPaused = true;
     const scrollAmount = container.clientWidth * 0.8; // Scroll 80% of container width
     container.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
-    
+
     // Resume auto-scroll after a delay
     setTimeout(() => {
       autoScrollRef.current.isPaused = false;
@@ -140,11 +140,11 @@ export default function AdsExamplesSection({ adType, demoContent = [], isLoading
   const scrollRight = () => {
     const container = scrollContainerRef.current;
     if (!container) return;
-    
+
     autoScrollRef.current.isPaused = true;
     const scrollAmount = container.clientWidth * 0.8; // Scroll 80% of container width
     container.scrollBy({ left: scrollAmount, behavior: 'smooth' });
-    
+
     // Resume auto-scroll after a delay
     setTimeout(() => {
       autoScrollRef.current.isPaused = false;
@@ -166,11 +166,10 @@ export default function AdsExamplesSection({ adType, demoContent = [], isLoading
               <button
                 key={type}
                 onClick={() => onAdTypeChange(type)}
-                className={`px-6 py-2 rounded-full text-sm font-semibold transition-all cursor-pointer ${
-                  adType === type
+                className={`px-6 py-2 rounded-full text-sm font-semibold transition-all cursor-pointer ${adType === type
                     ? 'bg-gradient-to-r from-purple-600 to-indigo-600 text-white shadow-md'
                     : 'text-gray-600 hover:text-purple-600'
-                }`}
+                  }`}
               >
                 {type === 'image' ? 'Image Ads' : 'Video Ads'}
               </button>
@@ -206,59 +205,78 @@ export default function AdsExamplesSection({ adType, demoContent = [], isLoading
               </svg>
             </button>
 
-            <div 
+            <div
               ref={scrollContainerRef}
               className="flex gap-8 overflow-x-hidden scrollbar-hide"
               style={{ scrollBehavior: 'auto' }}
             >
-          {examples.map((example, index) => (
-            <div key={`${index}-${example.title || index}`} className="relative group flex-shrink-0 w-full md:w-[calc(33.333%-1.5rem)] min-w-[280px] max-w-[400px]">
-              <div className={`${isVideo ? 'aspect-[9/16]' : 'aspect-square'} rounded-xl shadow-lg hover:shadow-xl transition-all overflow-hidden`}>
-                {hasDemoContent && filteredDemoContent.length > 0 && (example.imageUrl || example.videoUrl) ? (
-                  <div className="w-full h-full rounded-lg overflow-hidden">
-                    {isVideo && example.videoUrl ? (
-                      <video 
-                        src={example.videoUrl} 
-                        className="w-full h-full object-cover"
-                        controls
-                        autoPlay
-                        loop
-                        muted
-                        playsInline
-                        poster={example.thumbnailUrl}
-                      />
-                    ) : example.imageUrl ? (
-                      <div className="relative w-full h-full">
-                        <img 
-                          src={example.imageUrl} 
-                          alt={example.title}
-                          className="w-full h-full object-cover cursor-zoom-in transition-transform duration-300 group-hover:scale-[1.02]"
-                          onClick={() =>
-                            setZoomImage({
-                              url: example.imageUrl,
-                              title: example.title,
-                              description: example.description,
-                            })
-                          }
-                        />
-                        {/* Zoom Icon Overlay */}
-                        <div className="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
-                          <div className="bg-black/60 backdrop-blur-sm rounded-full p-2.5">
-                            <svg 
-                              className="w-5 h-5 text-white" 
-                              fill="none" 
-                              stroke="currentColor" 
-                              viewBox="0 0 24 24"
-                            >
-                              <path 
-                                strokeLinecap="round" 
-                                strokeLinejoin="round" 
-                                strokeWidth={2} 
-                                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v6m3-3H7" 
-                              />
-                            </svg>
+              {examples.map((example, index) => (
+                <div key={`${index}-${example.title || index}`} className="relative group flex-shrink-0 w-full md:w-[calc(33.333%-1.5rem)] min-w-[280px] max-w-[400px]">
+                  <div className={`${isVideo ? 'aspect-[9/16]' : 'aspect-square'} rounded-xl shadow-lg hover:shadow-xl transition-all overflow-hidden`}>
+                    {hasDemoContent && filteredDemoContent.length > 0 && (example.imageUrl || example.videoUrl) ? (
+                      <div className="w-full h-full rounded-lg overflow-hidden">
+                        {isVideo && example.videoUrl ? (
+                          <video
+                            src={example.videoUrl}
+                            className="w-full h-full object-cover"
+                            controls
+                            autoPlay
+                            loop
+                            muted
+                            playsInline
+                            poster={example.thumbnailUrl}
+                          />
+                        ) : example.imageUrl ? (
+                          <div className="relative w-full h-full">
+                            <img
+                              src={example.imageUrl}
+                              alt={example.title}
+                              className="w-full h-full object-cover cursor-zoom-in transition-transform duration-300 group-hover:scale-[1.02]"
+                              onClick={() =>
+                                setZoomImage({
+                                  url: example.imageUrl,
+                                  title: example.title,
+                                  description: example.description,
+                                })
+                              }
+                            />
+                            {/* Zoom Icon Overlay */}
+                            <div className="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
+                              <div className="bg-black/60 backdrop-blur-sm rounded-full p-2.5">
+                                <svg
+                                  className="w-5 h-5 text-white"
+                                  fill="none"
+                                  stroke="currentColor"
+                                  viewBox="0 0 24 24"
+                                >
+                                  <path
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    strokeWidth={2}
+                                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v6m3-3H7"
+                                  />
+                                </svg>
+                              </div>
+                            </div>
                           </div>
-                        </div>
+                        ) : (
+                          <div className="w-full h-full bg-purple-50/40 rounded-lg flex items-center justify-center">
+                            <div className="text-center">
+                              <div className="w-16 h-16 mx-auto mb-4 rounded-lg bg-gradient-to-br from-purple-100 to-indigo-100 flex items-center justify-center">
+                                {isVideo ? (
+                                  <svg className="w-8 h-8 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                                  </svg>
+                                ) : (
+                                  <svg className="w-8 h-8 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                                  </svg>
+                                )}
+                              </div>
+                              <p className="text-sm font-semibold text-gray-700">Professional Result</p>
+                            </div>
+                          </div>
+                        )}
                       </div>
                     ) : (
                       <div className="w-full h-full bg-purple-50/40 rounded-lg flex items-center justify-center">
@@ -279,33 +297,14 @@ export default function AdsExamplesSection({ adType, demoContent = [], isLoading
                       </div>
                     )}
                   </div>
-                ) : (
-                  <div className="w-full h-full bg-purple-50/40 rounded-lg flex items-center justify-center">
-                    <div className="text-center">
-                      <div className="w-16 h-16 mx-auto mb-4 rounded-lg bg-gradient-to-br from-purple-100 to-indigo-100 flex items-center justify-center">
-                        {isVideo ? (
-                          <svg className="w-8 h-8 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
-                          </svg>
-                        ) : (
-                          <svg className="w-8 h-8 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                          </svg>
-                        )}
-                      </div>
-                      <p className="text-sm font-semibold text-gray-700">Professional Result</p>
-                    </div>
+                  <div className="mt-4 text-center">
+                    <p className="font-semibold text-gray-900">{example.title}</p>
+                    {example.description && (
+                      <p className="text-sm text-gray-600 mt-1">{example.description}</p>
+                    )}
                   </div>
-                )}
-              </div>
-              <div className="mt-4 text-center">
-                <p className="font-semibold text-gray-900">{example.title}</p>
-                {example.description && (
-                  <p className="text-sm text-gray-600 mt-1">{example.description}</p>
-                )}
-              </div>
-            </div>
-          ))}
+                </div>
+              ))}
             </div>
           </div>
         )}
