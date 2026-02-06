@@ -16,7 +16,7 @@ export default function PortfolioSection() {
             try {
                 setIsLoading(true);
                 const response = await api.getPortfolio();
-                
+
                 if (response.success && response.portfolios) {
                     // Map to portfolio format
                     const portfolioItems = response.portfolios.map((item, index) => ({
@@ -27,7 +27,7 @@ export default function PortfolioSection() {
                         category: item.category || 'Design',
                         hasLink: item.linkUrl && item.linkUrl.trim() !== ''
                     }));
-                    
+
                     setPortfolios(portfolioItems);
                 } else {
                     setPortfolios([]);
@@ -72,10 +72,10 @@ export default function PortfolioSection() {
     };
 
     return (
-        <section className="py-24 bg-white relative overflow-hidden">
+        <section className="py-12 md:py-24 bg-white relative overflow-hidden">
             {/* Decorative Background Elements */}
-            <div className="absolute top-0 right-0 -translate-y-1/2 translate-x-1/4 w-96 h-96 bg-purple-100/50 rounded-full blur-3xl pointer-events-none"></div>
-            <div className="absolute bottom-0 left-0 translate-y-1/2 -translate-x-1/4 w-96 h-96 bg-indigo-100/50 rounded-full blur-3xl pointer-events-none"></div>
+            <div className="absolute top-0 right-0 -translate-y-1/2 translate-x-1/4 w-96 h-96 bg-purple-100/50 blur-3xl pointer-events-none"></div>
+            <div className="absolute bottom-0 left-0 translate-y-1/2 -translate-x-1/4 w-96 h-96 bg-indigo-100/50 blur-3xl pointer-events-none"></div>
 
             <div className="container mx-auto px-6 relative">
                 <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
@@ -84,8 +84,7 @@ export default function PortfolioSection() {
                             Performance-Driven <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-indigo-600">Designs</span>
                         </h2>
                         <p className="text-lg text-gray-600 leading-relaxed">
-                            Explore our recent projects and design specimens. Each piece is crafted with precision to ensure maximum impact and conversion.
-                        </p>
+                            We don’t design blindly. Every creative is built using performance insights like audience behavior, hook placement, visual hierarchy, and conversion triggers                        </p>
                     </div>
 
                     <div className="flex gap-4">
@@ -134,64 +133,64 @@ export default function PortfolioSection() {
                         style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
                     >
                         {portfolios.map((item) => (
-                        <div
-                            key={item.id}
-                            className="flex-shrink-0 w-full md:w-[calc(33.333%-1.33rem)] snap-start group"
-                        >
-                            <div className="relative aspect-[4/5] rounded-3xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-500 bg-gray-100">
-                                <img
-                                    src={item.imageUrl}
-                                    alt={item.title}
-                                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                                />
+                            <div
+                                key={item.id}
+                                className="flex-shrink-0 w-full md:w-[calc(33.333%-1.33rem)] snap-start group"
+                            >
+                                <div className="relative aspect-[4/5] overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-500 bg-gray-100">
+                                    <img
+                                        src={item.imageUrl}
+                                        alt={item.title}
+                                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                                    />
 
-                                {/* Default Title Overlay (Visible by default, hidden on hover) */}
-                                <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black/80 via-black/40 to-transparent transition-opacity duration-300 group-hover:opacity-0 pointer-events-none">
-                                    <h3 className="text-xl font-bold text-white tracking-tight">{item.title}</h3>
-                                    <p className="text-purple-300 text-xs font-semibold uppercase tracking-wider mt-1">{item.category}</p>
-                                </div>
+                                    {/* Default Title Overlay (Visible by default, hidden on hover) */}
+                                    <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black/80 via-black/40 to-transparent transition-opacity duration-300 group-hover:opacity-0 pointer-events-none">
+                                        <h3 className="text-xl font-bold text-white tracking-tight">{item.title}</h3>
+                                        <p className="text-purple-300 text-xs font-semibold uppercase tracking-wider mt-1">{item.category}</p>
+                                    </div>
 
-                                {/* Hover Overlay (Hidden by default, shown on hover) */}
-                                <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-8">
-                                    <span className="text-purple-400 text-xs font-bold uppercase tracking-widest mb-2 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500 delay-100">
-                                        {item.category}
-                                    </span>
-                                    <h3 className="text-2xl font-bold text-white mb-6 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500 delay-150">
-                                        {item.title}
-                                    </h3>
-                                    {item.hasLink ? (
+                                    {/* Hover Overlay (Hidden by default, shown on hover) */}
+                                    <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-8">
+                                        <span className="text-purple-400 text-xs font-bold uppercase tracking-widest mb-2 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500 delay-100">
+                                            {item.category}
+                                        </span>
+                                        <h3 className="text-2xl font-bold text-white mb-6 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500 delay-150">
+                                            {item.title}
+                                        </h3>
+                                        {item.hasLink ? (
+                                            <a
+                                                href={item.figmaLink}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="inline-flex items-center gap-2 bg-white text-gray-900 px-6 py-3 rounded-full font-bold text-sm hover:bg-purple-50 transition-colors transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500 delay-200"
+                                            >
+                                                View Our Work
+                                                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                                                </svg>
+                                            </a>
+                                        ) : (
+                                            <div className="inline-flex items-center gap-2 bg-gray-400 text-white px-6 py-3 rounded-full font-bold text-sm cursor-not-allowed transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500 delay-200">
+                                                View Our Work
+                                                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                                                </svg>
+                                            </div>
+                                        )}
+                                    </div>
+                                    {/* Visual indicator that it's clickable - only if link exists */}
+                                    {item.hasLink && (
                                         <a
                                             href={item.figmaLink}
                                             target="_blank"
                                             rel="noopener noreferrer"
-                                            className="inline-flex items-center gap-2 bg-white text-gray-900 px-6 py-3 rounded-full font-bold text-sm hover:bg-purple-50 transition-colors transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500 delay-200"
-                                        >
-                                            View Our Work
-                                            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                                            </svg>
-                                        </a>
-                                    ) : (
-                                        <div className="inline-flex items-center gap-2 bg-gray-400 text-white px-6 py-3 rounded-full font-bold text-sm cursor-not-allowed transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500 delay-200">
-                                            View Our Work
-                                            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                                            </svg>
-                                        </div>
+                                            className="absolute inset-0 z-10 block"
+                                            aria-label={`Open ${item.title}`}
+                                        ></a>
                                     )}
                                 </div>
-                                {/* Visual indicator that it's clickable - only if link exists */}
-                                {item.hasLink && (
-                                    <a
-                                        href={item.figmaLink}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        className="absolute inset-0 z-10 block"
-                                        aria-label={`Open ${item.title}`}
-                                    ></a>
-                                )}
                             </div>
-                        </div>
                         ))}
                     </div>
                 )}

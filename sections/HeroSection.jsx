@@ -4,7 +4,7 @@ import Image from 'next/image';
 
 export default function HeroSection({ adType, onAdTypeChange, onBuyClick }) {
   return (
-    <section id="hero" className="pt-16 pb-10 md:pt-32 md:pb-20 bg-gradient-to-b from-purple-50 via-purple-100 to-purple-50 relative overflow-hidden">
+    <section id="hero" className="pt-24 pb-8 md:pt-32 md:pb-20 bg-gradient-to-b from-purple-50 via-purple-100 to-purple-50 relative overflow-hidden">
       {/* Animated Background Icons */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         {/* Shopping Cart Icon */}
@@ -13,7 +13,7 @@ export default function HeroSection({ adType, onAdTypeChange, onBuyClick }) {
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
           </svg>
         </div>
-        
+
         {/* Chart/Graph Icon */}
         <div className="absolute top-40 right-20 animate-pulse opacity-30" style={{ animationDelay: '0.5s' }}>
           <svg className="w-14 h-14 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -76,36 +76,84 @@ export default function HeroSection({ adType, onAdTypeChange, onBuyClick }) {
           {/* Left Content */}
           <div className="text-center lg:text-left space-y-6">
             {/* Header */}
-           
-            
+
+
             {/* Main Headline */}
-            <h1 className="text-4xl md:text-5xl mt-10 font-bold text-purple-900 mb-6 leading-tight">
-              Buy Professional E-Commerce Ads Created by Our Expert Team
+            {/* Main Headline */}
+            <h1 className="text-3xl md:text-5xl md:mt-10 mt-2 font-bold text-purple-900 mb-2 md:mb-6 leading-tight">
+              High-Converting E-Commerce Ads That Help You Sell More
             </h1>
-            
+
             {/* Tagline */}
-            <p className="text-lg md:text-xl font-semibold text-purple-700 mb-6 uppercase tracking-wide">
-              SAVE TIME. SAVE MONEY. GET BETTER ADS.
-            </p>
-            
+            <p className="text-sm md:text-lg text-purple-700 mb-6 leading-relaxed">
+              Adexxpress, a product by AGS, creates ready-to-run image and video ad creatives for Shopify &amp; e-commerce brands — fast, affordable, and built for performance </p>
+
             {/* Promotional Badges */}
-            <div className="flex flex-wrap gap-4 justify-center lg:justify-start mb-6">
-              <div className="px-6 py-3 bg-white border-2 border-red-500 text-red-600 rounded-full font-bold text-lg shadow-lg">
-                Flat 30% OFF
+            {/* Promotional Badges */}
+            {/* Promotional Points */}
+            <div className="flex items-center gap-2 md:gap-8 mb-6 md:mb-8 overflow-x-visible">
+              <div className="flex items-center gap-1.5 md:gap-2 min-w-0">
+                <div className="p-1 rounded-full bg-blue-100 flex-shrink-0">
+                  <svg className="w-4 h-4 md:w-5 md:h-5 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                  </svg>
+                </div>
+                <span className="font-bold text-purple-900 text-xs sm:text-sm md:text-base leading-tight">Built for conversions</span>
               </div>
-              <div className="px-6 py-3 bg-white border-2 border-green-500 text-green-600 rounded-full font-bold text-lg shadow-lg">
-                24-Hour Delivery
+
+              <div className="flex items-center gap-1.5 md:gap-2 min-w-0">
+                <div className="p-1 rounded-full bg-blue-100 flex-shrink-0">
+                  <svg className="w-4 h-4 md:w-5 md:h-5 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                  </svg>
+                </div>
+                <span className="font-bold text-purple-900 text-xs sm:text-sm md:text-base leading-tight">Ready in 24–48 hours</span>
+              </div>
+            </div>
+
+            {/* Mobile Hero Images (Visible below bullets on mobile/tablet) */}
+            <div className="relative flex lg:hidden items-center justify-center h-[280px] sm:h-[400px] w-full overflow-visible my-2">
+              {/* Image 1 - Left (Back Layer) */}
+              <div className="absolute left-0 sm:left-4 top-1/2 -translate-y-1/2 w-[140px] h-[140px] sm:w-[180px] sm:h-[180px] overflow-hidden shadow-2xl z-10" style={{ boxShadow: '0 20px 40px -10px rgba(0, 0, 0, 0.4)' }}>
+                <Image
+                  src="/banner pic/image2.jpeg"
+                  alt="Ad Example 1"
+                  fill
+                  className="object-cover"
+                  priority
+                />
+              </div>
+
+              {/* Image 2 - Center (Front Layer) */}
+              <div className="relative w-[200px] h-[200px] sm:w-[240px] sm:h-[240px] overflow-hidden shadow-2xl z-30 mx-auto" style={{ boxShadow: '0 35px 70px -15px rgba(0, 0, 0, 0.7), 0 10px 30px -5px rgba(0, 0, 0, 0.5)' }}>
+                <Image
+                  src="/banner pic/image3.jpeg"
+                  alt="Ad Example 2"
+                  fill
+                  className="object-cover"
+                  priority
+                />
+              </div>
+
+              {/* Image 3 - Right (Back Layer) */}
+              <div className="absolute right-0 sm:right-4 top-1/2 -translate-y-1/2 w-[140px] h-[140px] sm:w-[180px] sm:h-[180px] overflow-hidden shadow-2xl z-10" style={{ boxShadow: '0 20px 40px -10px rgba(0, 0, 0, 0.4)' }}>
+                <Image
+                  src="/banner pic/image1.jpeg"
+                  alt="Ad Example 3"
+                  fill
+                  className="object-cover"
+                  priority
+                />
               </div>
             </div>
 
             {/* Service Cards */}
             <div className="flex flex-col md:flex-row gap-6 justify-center lg:justify-start mb-8">
               <div
-                className={`p-6 rounded-xl border-2 cursor-pointer transition-all ${
-                  adType === 'video'
-                    ? 'border-purple-500 bg-purple-200/50 shadow-lg'
-                    : 'border-purple-300 bg-white/50 hover:border-purple-400 hover:bg-purple-100/50'
-                }`}
+                className={`p-6 border-2 cursor-pointer transition-all ${adType === 'video'
+                  ? 'border-purple-500 bg-purple-200/50 shadow-lg'
+                  : 'border-purple-300 bg-white/50 hover:border-purple-400 hover:bg-purple-100/50'
+                  }`}
                 onClick={() => {
                   onAdTypeChange('video');
                   setTimeout(() => {
@@ -117,25 +165,24 @@ export default function HeroSection({ adType, onAdTypeChange, onBuyClick }) {
                 }}
               >
                 <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-purple-500 to-indigo-500 flex items-center justify-center shadow-lg">
+                  <div className="w-12 h-12 bg-gradient-to-br from-purple-500 to-indigo-500 flex items-center justify-center shadow-lg">
                     <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
                     </svg>
                   </div>
                   <div className="text-left">
                     <h3 className="font-bold text-purple-900">Professional Video Ads</h3>
-                    <p className="text-sm text-purple-700">Expert team + AI tools</p>
-                    <p className="text-sm font-semibold text-purple-600 mt-1">Starting from ₹1000</p>
+                    <p className="text-sm text-purple-600">Short-form video ads designed to grab attention and drive action</p>
+
                   </div>
                 </div>
               </div>
 
               <div
-                className={`p-6 rounded-xl border-2 cursor-pointer transition-all ${
-                  adType === 'image'
-                    ? 'border-purple-500 bg-purple-200/50 shadow-lg'
-                    : 'border-purple-300 bg-white/50 hover:border-purple-400 hover:bg-purple-100/50'
-                }`}
+                className={`p-6 border-2 cursor-pointer transition-all ${adType === 'image'
+                  ? 'border-purple-500 bg-purple-200/50 shadow-lg'
+                  : 'border-purple-300 bg-white/50 hover:border-purple-400 hover:bg-purple-100/50'
+                  }`}
                 onClick={() => {
                   onAdTypeChange('image');
                   setTimeout(() => {
@@ -147,15 +194,15 @@ export default function HeroSection({ adType, onAdTypeChange, onBuyClick }) {
                 }}
               >
                 <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-indigo-500 to-purple-500 flex items-center justify-center shadow-lg">
+                  <div className="w-12 h-12 bg-gradient-to-br from-indigo-500 to-purple-500 flex items-center justify-center shadow-lg">
                     <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
                     </svg>
                   </div>
                   <div className="text-left">
                     <h3 className="font-bold text-purple-900">Professional Image Ads</h3>
-                    <p className="text-sm text-purple-700">Expert team + AI tools</p>
-                    <p className="text-sm font-semibold text-purple-600 mt-1">Starting from ₹500</p>
+                    <p className="text-sm text-purple-600">High-quality static and carousel ads designed to stop the scroll</p>
+
                   </div>
                 </div>
               </div>
@@ -165,50 +212,50 @@ export default function HeroSection({ adType, onAdTypeChange, onBuyClick }) {
             <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
               <button
                 onClick={onBuyClick}
-                className="px-8 py-4 bg-gradient-to-r from-purple-600 to-indigo-600 text-white rounded-lg font-semibold text-lg hover:from-purple-500 hover:to-indigo-500 transition-all shadow-lg hover:shadow-xl cursor-pointer"
+                className="px-4 py-3 bg-gradient-to-r from-purple-600 to-indigo-600 text-white rounded-none font-semibold text-md hover:from-purple-500 hover:to-indigo-500 transition-all shadow-lg hover:shadow-xl cursor-pointer"
               >
-                {adType === 'video' ? 'Buy Professional Video Ads' : 'Buy Professional Image Ads'}
+                {adType === 'video' ? 'Get My E-Commerce Video Ads Now' : 'Get My E-Commerce Image Ads Now'}
               </button>
               <button
                 onClick={() => {
-                  const element = document.getElementById('how-it-works');
+                  const element = document.getElementById('ads-examples');
                   element?.scrollIntoView({ behavior: 'smooth' });
                 }}
-                className="px-8 py-4 bg-white border-2 border-purple-500 text-purple-700 rounded-lg font-semibold text-lg hover:bg-purple-50 transition-all cursor-pointer"
+                className="px-4 py-3 bg-white border-2 border-purple-500 text-purple-700 rounded-none font-semibold text-lg hover:bg-purple-50 transition-all cursor-pointer"
               >
-                See Our Process
+                See Our Creative Work
               </button>
             </div>
           </div>
 
-          {/* Right Images */}
-          <div className="relative flex items-center justify-center h-[280px] sm:h-[400px] lg:h-[600px] w-full overflow-visible -mt-4 md:mt-0 mb-4 md:mb-0">
+          {/* Right Images (Desktop Only) */}
+          <div className="relative hidden lg:flex items-center justify-center h-[280px] sm:h-[400px] lg:h-[600px] w-full overflow-visible -mt-4 md:mt-0 mb-4 md:mb-0">
             {/* Image 1 - Left (Back Layer) */}
-            <div className="absolute left-0 sm:left-4 lg:left-0 top-1/2 -translate-y-1/2 w-[140px] h-[140px] sm:w-[180px] sm:h-[180px] lg:w-[240px] lg:h-[240px] rounded-2xl overflow-hidden shadow-2xl z-10" style={{ boxShadow: '0 20px 40px -10px rgba(0, 0, 0, 0.4)' }}>
+            <div className="absolute left-0 sm:left-4 lg:left-0 top-1/2 -translate-y-1/2 w-[140px] h-[140px] sm:w-[180px] sm:h-[180px] lg:w-[240px] lg:h-[240px] overflow-hidden shadow-2xl z-10" style={{ boxShadow: '0 20px 40px -10px rgba(0, 0, 0, 0.4)' }}>
               <Image
-                src="/banner pic/pic1.webp"
+                src="/banner pic/image2.jpeg"
                 alt="Ad Example 1"
                 fill
                 className="object-cover"
                 priority
               />
             </div>
-            
+
             {/* Image 2 - Center (Front Layer - Overlaps others) */}
-            <div className="relative w-[200px] h-[200px] sm:w-[240px] sm:h-[240px] lg:w-[360px] lg:h-[360px] rounded-2xl overflow-hidden shadow-2xl z-30 mx-auto" style={{ boxShadow: '0 35px 70px -15px rgba(0, 0, 0, 0.7), 0 10px 30px -5px rgba(0, 0, 0, 0.5)' }}>
+            <div className="relative w-[200px] h-[200px] sm:w-[240px] sm:h-[240px] lg:w-[340px] lg:h-[330px] overflow-hidden shadow-2xl z-30 mx-auto" style={{ boxShadow: '0 35px 70px -15px rgba(0, 0, 0, 0.7), 0 10px 30px -5px rgba(0, 0, 0, 0.5)' }}>
               <Image
-                src="/banner pic/pic2.webp"
+                src="/banner pic/image3.jpeg"
                 alt="Ad Example 2"
                 fill
                 className="object-cover"
                 priority
               />
             </div>
-            
+
             {/* Image 3 - Right (Back Layer) */}
-            <div className="absolute right-0 sm:right-4 lg:right-0 top-1/2 -translate-y-1/2 w-[140px] h-[140px] sm:w-[180px] sm:h-[180px] lg:w-[240px] lg:h-[240px] rounded-2xl overflow-hidden shadow-2xl z-10" style={{ boxShadow: '0 20px 40px -10px rgba(0, 0, 0, 0.4)' }}>
+            <div className="absolute right-0 sm:right-4 lg:right-0 top-1/2 -translate-y-1/2 w-[140px] h-[140px] sm:w-[180px] sm:h-[180px] lg:w-[240px] lg:h-[240px] overflow-hidden shadow-2xl z-10" style={{ boxShadow: '0 20px 40px -10px rgba(0, 0, 0, 0.4)' }}>
               <Image
-                src="/banner pic/pic3.webp"
+                src="/banner pic/image1.jpeg"
                 alt="Ad Example 3"
                 fill
                 className="object-cover"

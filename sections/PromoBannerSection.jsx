@@ -16,20 +16,20 @@ export default function PromoBannerSection({ onBuyClick }) {
         />
         {/* Overlay for better text readability */}
         <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/55 to-black/60 backdrop-blur-xs"></div>
-        </div>
+      </div>
 
       {/* Content */}
-      <div className="relative z-10 container mx-auto px-6 py-12 text-center">
+      <div className="relative z-10 container mx-auto px-6 py-8 md:py-12 text-center">
         <div className="max-w-4xl mx-auto">
           {/* Badge */}
           <div className="inline-block mb-6 animate-bounce">
-            <span className="px-6 py-3 bg-gradient-to-r from-purple-500 to-indigo-600 text-white rounded-full text-lg font-bold shadow-2xl">
-               LIMITED TIME OFFER 
+            <span className="px-6 py-3 bg-gradient-to-r from-purple-500 to-indigo-600 text-white text-lg font-bold shadow-2xl">
+              LIMITED TIME OFFER
             </span>
           </div>
 
           {/* Main Headline */}
-          <h2 className="text-4xl md:text-6xl lg:text-7xl font-extrabold text-white mb-6 leading-tight drop-shadow-2xl">
+          <h2 className="text-3xl md:text-6xl lg:text-7xl font-extrabold text-white mb-6 leading-tight drop-shadow-2xl">
             Transform Your Ads Into
             <span className="block bg-gradient-to-r from-purple-300 via-indigo-300 to-pink-300 bg-clip-text text-transparent">
               Conversion Machines
@@ -37,15 +37,15 @@ export default function PromoBannerSection({ onBuyClick }) {
           </h2>
 
           {/* Subheadline */}
-          <p className="text-xl md:text-2xl lg:text-3xl text-white/90 mb-10 font-semibold drop-shadow-lg">
-            Professional Quality Ads That Drive Real Results
+          <p className="text-sm md:text-lg lg:text-2xl text-white/90 mb-10 font-medium drop-shadow-lg">
+            Our professional ad designs help e-commerce brands reduce wasted ad spend and increase conversions with proven creative strategies
           </p>
 
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
             <button
               onClick={onBuyClick}
-              className="px-10 py-5 bg-gradient-to-r from-purple-500 to-indigo-600 text-white rounded-xl font-bold text-lg md:text-xl shadow-2xl hover:shadow-purple-500/50 hover:scale-105 transition-all duration-300 transform cursor-pointer"
+              className="px-10 py-5 bg-gradient-to-r from-purple-500 to-indigo-600 text-white rounded-none font-bold text-lg md:text-xl shadow-2xl hover:shadow-purple-500/50 hover:scale-105 transition-all duration-300 transform cursor-pointer"
             >
               Get Started Now
             </button>
@@ -54,7 +54,7 @@ export default function PromoBannerSection({ onBuyClick }) {
                 const element = document.getElementById('pricing');
                 element?.scrollIntoView({ behavior: 'smooth' });
               }}
-              className="px-10 py-5 bg-white/10 backdrop-blur-md border-2 border-white/30 text-white rounded-xl font-bold text-lg md:text-xl hover:bg-white/20 transition-all duration-300 transform hover:scale-105 cursor-pointer"
+              className="px-10 py-5 bg-white/10 backdrop-blur-md border-2 border-white/30 text-white rounded-none font-bold text-lg md:text-xl hover:bg-white/20 transition-all duration-300 transform hover:scale-105 cursor-pointer"
             >
               View Pricing Plans
             </button>
@@ -85,9 +85,9 @@ export default function PromoBannerSection({ onBuyClick }) {
       </div>
 
       {/* Decorative Elements */}
-      <div className="absolute top-10 left-10 w-20 h-20 bg-purple-400/20 rounded-full blur-xl animate-pulse"></div>
-      <div className="absolute bottom-10 right-10 w-32 h-32 bg-pink-400/20 rounded-full blur-xl animate-pulse" style={{ animationDelay: '1s' }}></div>
-      <div className="absolute top-1/2 right-20 w-16 h-16 bg-indigo-400/20 rounded-full blur-lg animate-pulse" style={{ animationDelay: '0.5s' }}></div>
+      <div className="absolute top-10 left-10 w-20 h-20 bg-purple-400/20 blur-xl animate-pulse"></div>
+      <div className="absolute bottom-10 right-10 w-32 h-32 bg-pink-400/20 blur-xl animate-pulse" style={{ animationDelay: '1s' }}></div>
+      <div className="absolute top-1/2 right-20 w-16 h-16 bg-indigo-400/20 blur-lg animate-pulse" style={{ animationDelay: '0.5s' }}></div>
     </section>
   );
 }

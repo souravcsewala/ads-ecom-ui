@@ -152,23 +152,22 @@ export default function AdsExamplesSection({ adType, demoContent = [], isLoading
   };
 
   return (
-    <section className="py-20 bg-purple-50/30">
+    <section id="ads-examples" className="py-10 md:py-20 bg-purple-50/30">
       <div className="container mx-auto px-6">
         <div className="text-center max-w-3xl mx-auto mb-12">
           <h2 className="text-4xl font-bold text-gray-900 mb-4">
             Professional {isVideo ? 'Video' : 'Image'} Ads That Convert
           </h2>
           <p className="text-lg text-gray-600">
-            See how our professional team has transformed client inspiration into high-converting {isVideo ? 'video' : 'image'} campaigns using advanced AI tools.
-          </p>
-          <div className="mt-6 inline-flex rounded-full bg-white shadow-inner p-1">
+            From product launches to scaling campaigns, our ad creatives are built to grab attention, communicate value instantly, and drive action across platforms          </p>
+          <div className="mt-6 inline-flex bg-white shadow-inner p-1">
             {['image', 'video'].map((type) => (
               <button
                 key={type}
                 onClick={() => onAdTypeChange(type)}
-                className={`px-6 py-2 rounded-full text-sm font-semibold transition-all cursor-pointer ${adType === type
-                    ? 'bg-gradient-to-r from-purple-600 to-indigo-600 text-white shadow-md'
-                    : 'text-gray-600 hover:text-purple-600'
+                className={`px-6 py-2 rounded-none text-sm font-semibold transition-all cursor-pointer ${adType === type
+                  ? 'bg-gradient-to-r from-purple-600 to-indigo-600 text-white shadow-md'
+                  : 'text-gray-600 hover:text-purple-600'
                   }`}
               >
                 {type === 'image' ? 'Image Ads' : 'Video Ads'}
@@ -212,20 +211,37 @@ export default function AdsExamplesSection({ adType, demoContent = [], isLoading
             >
               {examples.map((example, index) => (
                 <div key={`${index}-${example.title || index}`} className="relative group flex-shrink-0 w-full md:w-[calc(33.333%-1.5rem)] min-w-[280px] max-w-[400px]">
-                  <div className={`${isVideo ? 'aspect-[9/16]' : 'aspect-square'} rounded-xl shadow-lg hover:shadow-xl transition-all overflow-hidden`}>
+                  <div className={`${isVideo ? 'aspect-[9/16]' : 'aspect-square'} shadow-lg hover:shadow-xl transition-all overflow-hidden`}>
                     {hasDemoContent && filteredDemoContent.length > 0 && (example.imageUrl || example.videoUrl) ? (
-                      <div className="w-full h-full rounded-lg overflow-hidden">
+                      <div className="w-full h-full  overflow-hidden">
                         {isVideo && example.videoUrl ? (
-                          <video
-                            src={example.videoUrl}
-                            className="w-full h-full object-cover"
-                            controls
-                            autoPlay
-                            loop
-                            muted
-                            playsInline
-                            poster={example.thumbnailUrl}
-                          />
+                          <div className="relative w-full h-full group cursor-pointer"
+                            onClick={() =>
+                              setZoomImage({
+                                url: example.videoUrl,
+                                title: example.title,
+                                description: example.description,
+                                isVideo: true
+                              })
+                            }>
+                            <video
+                              src={example.videoUrl}
+                              className="w-full h-full object-cover"
+                              autoPlay
+                              loop
+                              muted
+                              playsInline
+                              poster={example.thumbnailUrl}
+                            />
+                            {/* Play Icon Overlay */}
+                            <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black/20">
+                              <div className="bg-black/60 backdrop-blur-sm rounded-full p-4 transform scale-90 group-hover:scale-100 transition-transform">
+                                <svg className="w-8 h-8 text-white pl-1" fill="currentColor" viewBox="0 0 24 24">
+                                  <path d="M8 5v14l11-7z" />
+                                </svg>
+                              </div>
+                            </div>
+                          </div>
                         ) : example.imageUrl ? (
                           <div className="relative w-full h-full">
                             <img
@@ -237,6 +253,7 @@ export default function AdsExamplesSection({ adType, demoContent = [], isLoading
                                   url: example.imageUrl,
                                   title: example.title,
                                   description: example.description,
+                                  isVideo: false
                                 })
                               }
                             />
@@ -260,9 +277,9 @@ export default function AdsExamplesSection({ adType, demoContent = [], isLoading
                             </div>
                           </div>
                         ) : (
-                          <div className="w-full h-full bg-purple-50/40 rounded-lg flex items-center justify-center">
+                          <div className="w-full h-full bg-purple-50/40 flex items-center justify-center">
                             <div className="text-center">
-                              <div className="w-16 h-16 mx-auto mb-4 rounded-lg bg-gradient-to-br from-purple-100 to-indigo-100 flex items-center justify-center">
+                              <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-purple-100 to-indigo-100 flex items-center justify-center">
                                 {isVideo ? (
                                   <svg className="w-8 h-8 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
@@ -279,9 +296,9 @@ export default function AdsExamplesSection({ adType, demoContent = [], isLoading
                         )}
                       </div>
                     ) : (
-                      <div className="w-full h-full bg-purple-50/40 rounded-lg flex items-center justify-center">
+                      <div className="w-full h-full bg-purple-50/40 flex items-center justify-center">
                         <div className="text-center">
-                          <div className="w-16 h-16 mx-auto mb-4 rounded-lg bg-gradient-to-br from-purple-100 to-indigo-100 flex items-center justify-center">
+                          <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-purple-100 to-indigo-100 flex items-center justify-center">
                             {isVideo ? (
                               <svg className="w-8 h-8 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
@@ -316,12 +333,12 @@ export default function AdsExamplesSection({ adType, demoContent = [], isLoading
           onClick={() => setZoomImage(null)}
         >
           <div
-            className="relative max-w-4xl w-full bg-white rounded-2xl shadow-2xl overflow-hidden"
+            className="relative max-w-2xl w-full bg-white shadow-2xl overflow-hidden"
             onClick={(e) => e.stopPropagation()}
           >
             <button
               onClick={() => setZoomImage(null)}
-              className="absolute top-4 right-4 text-white bg-black/60 hover:bg-black/80 rounded-full p-2 cursor-pointer"
+              className="absolute top-4 right-4 text-white bg-black/60 hover:bg-black/80 rounded-full p-2 cursor-pointer z-10"
               aria-label="Close"
             >
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -329,16 +346,25 @@ export default function AdsExamplesSection({ adType, demoContent = [], isLoading
               </svg>
             </button>
             <div className="bg-black flex items-center justify-center p-6">
-              <img
-                src={zoomImage.url}
-                alt={zoomImage.title}
-                className="max-h-[80vh] max-w-full object-contain"
-              />
+              {zoomImage.isVideo ? (
+                <video
+                  src={zoomImage.url}
+                  className="max-h-[60vh] max-w-full object-contain"
+                  controls
+                  autoPlay
+                />
+              ) : (
+                <img
+                  src={zoomImage.url}
+                  alt={zoomImage.title}
+                  className="max-h-[60vh] max-w-full object-contain"
+                />
+              )}
             </div>
             <div className="p-6 bg-white">
-              <h3 className="text-2xl font-semibold text-gray-900">{zoomImage.title}</h3>
+              <h3 className="text-xl font-semibold text-gray-900">{zoomImage.title}</h3>
               {zoomImage.description && (
-                <p className="mt-2 text-gray-600">{zoomImage.description}</p>
+                <p className="mt-2 text-sm text-gray-600">{zoomImage.description}</p>
               )}
             </div>
           </div>

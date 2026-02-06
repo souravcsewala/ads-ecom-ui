@@ -1,11 +1,11 @@
-export default function PricingSection({ adType, onBuyClick, plans: serverPlans = [], onAdTypeChange = () => {} }) {
+export default function PricingSection({ adType, onBuyClick, plans: serverPlans = [], onAdTypeChange = () => { } }) {
   const isVideo = adType === 'video';
 
   // Use server plans if available, otherwise fallback to hardcoded
   const hasServerPlans = serverPlans && serverPlans.length > 0;
-  
+
   // Filter plans by adType
-  const filteredPlans = hasServerPlans 
+  const filteredPlans = hasServerPlans
     ? serverPlans.filter(plan => plan.planType === adType && plan.isActive)
     : [];
 
@@ -120,55 +120,53 @@ export default function PricingSection({ adType, onBuyClick, plans: serverPlans 
   };
 
   // Use server plans if available, otherwise use hardcoded
-  const plans = hasServerPlans 
+  const plans = hasServerPlans
     ? filteredPlans.map(plan => {
-        // Extract numberOfAds from plan name, CTA, or first feature
-        const numberOfAds = extractNumberOfAds(plan.planName) || 
-                           extractNumberOfAds(plan.cta) || 
-                           (plan.features?.[0] ? extractNumberOfAds(plan.features[0]) : null);
-        
-        return {
-          planName: plan.planName || '',
-          tag: plan.tag || '',
-          tagColor: plan.tagColor || '',
-          price: `₹${plan.price?.toLocaleString('en-IN') || '0'}`,
-          pricePer: plan.pricePer || '',
-          total: plan.total || '',
-          description: plan.description || '',
-          features: plan.features || [],
-          cta: plan.cta || plan.planName,
-          popular: plan.isPopular || false,
-          planId: plan._id,
-          numberOfAds: numberOfAds,
-        };
-      })
+      // Extract numberOfAds from plan name, CTA, or first feature
+      const numberOfAds = extractNumberOfAds(plan.planName) ||
+        extractNumberOfAds(plan.cta) ||
+        (plan.features?.[0] ? extractNumberOfAds(plan.features[0]) : null);
+
+      return {
+        planName: plan.planName || '',
+        tag: plan.tag || '',
+        tagColor: plan.tagColor || '',
+        price: `₹${plan.price?.toLocaleString('en-IN') || '0'}`,
+        pricePer: plan.pricePer || '',
+        total: plan.total || '',
+        description: plan.description || '',
+        features: plan.features || [],
+        cta: plan.cta || plan.planName,
+        popular: plan.isPopular || false,
+        planId: plan._id,
+        numberOfAds: numberOfAds,
+      };
+    })
     : (isVideo ? videoPlans : imagePlans).map(plan => ({
-        ...plan,
-        numberOfAds: extractNumberOfAds(plan.cta) || extractNumberOfAds(plan.features?.[0]),
-      }));
-  
+      ...plan,
+      numberOfAds: extractNumberOfAds(plan.cta) || extractNumberOfAds(plan.features?.[0]),
+    }));
+
   const adTypeName = isVideo ? 'Video' : 'Image';
 
   return (
-    <section id="pricing" className="py-20 bg-purple-50/30">
+    <section id="pricing" className="py-10 md:py-20 bg-purple-50/30">
       <div className="container mx-auto px-6">
         <div className="text-center max-w-3xl mx-auto mb-12">
           <h2 className="text-4xl font-bold text-gray-900 mb-4">
             Buy Professional {adTypeName} Ads
           </h2>
           <p className="text-lg text-gray-600">
-            Send us your inspiration from Meta Ads Library, Adna, or Foreplay and our professional team will create high-converting {isVideo ? 'video' : 'image'} ads using advanced AI tools.
-          </p>
-          <div className="mt-6 inline-flex rounded-full bg-white shadow-inner p-1">
+            Send us your ad ideas, and we’ll create high-converting image ads with the help of AI.          </p>
+          <div className="mt-6 inline-flex bg-white shadow-inner p-1">
             {['image', 'video'].map((type) => (
               <button
                 key={type}
                 onClick={() => onAdTypeChange(type)}
-                className={`px-6 py-2 rounded-full text-sm font-semibold transition-all cursor-pointer ${
-                  adType === type
-                    ? 'bg-gradient-to-r from-blue-500 to-indigo-500 text-white shadow-md'
-                    : 'text-gray-600 hover:text-blue-600'
-                }`}
+                className={`px-6 py-2 rounded-none text-sm font-semibold transition-all cursor-pointer ${adType === type
+                  ? 'bg-gradient-to-r from-blue-500 to-indigo-500 text-white shadow-md'
+                  : 'text-gray-600 hover:text-blue-600'
+                  }`}
               >
                 {type === 'image' ? 'Image Plans' : 'Video Plans'}
               </button>
@@ -180,14 +178,13 @@ export default function PricingSection({ adType, onBuyClick, plans: serverPlans 
           {plans.map((plan, index) => (
             <div
               key={index}
-              className={`bg-white p-8 rounded-2xl border-2 relative ${
-                (plan.popular || (plan.tag && plan.tag.toLowerCase().includes('most popular')))
-                  ? 'border-blue-500 shadow-2xl scale-105 ring-2 ring-blue-300 ring-offset-2'
-                  : 'border-gray-200 hover:border-blue-200 shadow-sm'
-              } transition-all`}
+              className={`bg-white p-8 border-2 relative ${(plan.popular || (plan.tag && plan.tag.toLowerCase().includes('most popular')))
+                ? 'border-blue-500 shadow-2xl scale-105 ring-2 ring-blue-300 ring-offset-2'
+                : 'border-gray-200 hover:border-blue-200 shadow-sm'
+                } transition-all`}
             >
               {plan.tag && (
-                <div className={`absolute -top-4 left-6 ${plan.tagColor} text-white px-4 py-1 rounded-full text-sm font-semibold`}>
+                <div className={`absolute -top-4 left-6 ${plan.tagColor} text-white px-4 py-1 text-sm font-semibold`}>
                   {plan.tag}
                 </div>
               )}
@@ -222,21 +219,20 @@ export default function PricingSection({ adType, onBuyClick, plans: serverPlans 
                   const numberOfAds = plan.numberOfAds || null;
                   onBuyClick(plan.cta, plan.price, plan.planId, numberOfAds);
                 }}
-                className={`w-full px-6 py-3 text-white rounded-lg font-semibold transition-all shadow-md hover:shadow-lg cursor-pointer ${
-                  plan.popular
-                    ? 'bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700'
-                    : 'bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700'
-                }`}
+                className={`w-full px-6 py-3 text-white rounded-none font-semibold transition-all shadow-md hover:shadow-lg cursor-pointer ${plan.popular
+                  ? 'bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700'
+                  : 'bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700'
+                  }`}
               >
                 {plan.cta}
               </button>
             </div>
           ))}
-          
+
           {/* Custom Plan Card */}
-          <div className="bg-gradient-to-br from-purple-100 to-indigo-100 p-8 rounded-xl border-2 border-purple-300 hover:border-purple-400 transition-all flex flex-col justify-center items-center text-center">
+          <div className="bg-gradient-to-br from-purple-100 to-indigo-100 p-8 border-2 border-purple-300 hover:border-purple-400 transition-all flex flex-col justify-center items-center text-center">
             <div className="mb-6">
-              <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-br from-purple-500 to-indigo-500 flex items-center justify-center shadow-lg">
+              <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-purple-500 to-indigo-500 flex items-center justify-center shadow-lg">
                 <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
                 </svg>
@@ -250,7 +246,7 @@ export default function PricingSection({ adType, onBuyClick, plans: serverPlans 
             </div>
             <button
               onClick={() => onBuyClick('Custom Plan', 'Contact for pricing', null, null)}
-              className="w-full px-6 py-3 bg-white border-2 border-purple-600 text-purple-600 rounded-lg font-semibold hover:bg-purple-50 transition-all shadow-md hover:shadow-lg cursor-pointer"
+              className="w-full px-6 py-3 bg-white border-2 border-purple-600 text-purple-600 rounded-none font-semibold hover:bg-purple-50 transition-all shadow-md hover:shadow-lg cursor-pointer"
             >
               Fill Custom Plan
             </button>

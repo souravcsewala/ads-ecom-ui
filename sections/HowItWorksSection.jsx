@@ -4,8 +4,8 @@ export default function HowItWorksSection({ adType }) {
   const steps = [
     {
       number: 1,
-      title: 'Share Requirements',
-      description: 'Fill out our brief intake form with your brand assets, goals, and target audience.',
+      title: 'Choose a Plan & Share Details',
+      description: 'Pick a plan and share your product details, brand guidelines, or inspiration. If anything’s missing, the AGS team will handle the creative direction',
       icon: (
         <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
@@ -14,8 +14,8 @@ export default function HowItWorksSection({ adType }) {
     },
     {
       number: 2,
-      title: 'We Design',
-      description: 'Our expert team creates high-converting ad concepts tailored to your niche and platform.',
+      title: 'We Create Your Ad Creatives',
+      description: 'Our AGS creative team designs conversion-focused image and video ads, reviewed for clarity, attention, and performance—not just looks',
       icon: (
         <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           {/* Monitor */}
@@ -27,8 +27,8 @@ export default function HowItWorksSection({ adType }) {
     },
     {
       number: 3,
-      title: 'You Get High-Converting Ads',
-      description: 'Review, approve, and launch your new creatives to scale your brand and boost ROAS.',
+      title: 'Receive Ready-to-Run Ads',
+      description: 'Within 24–48 hours, you receive platform-ready image and video ads for Facebook, Instagram, and Google. Upload, launch, and start testing',
       icon: (
         <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
@@ -38,7 +38,7 @@ export default function HowItWorksSection({ adType }) {
   ];
 
   return (
-    <section id="how-it-works" className="py-20 bg-gradient-to-b from-purple-50 to-purple-50/30">
+    <section id="how-it-works" className="py-10 md:py-20 bg-gradient-to-b from-purple-50 to-purple-50/30">
       <div className="container mx-auto px-6">
         <div className="text-center max-w-3xl mx-auto mb-16">
           <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
@@ -46,8 +46,8 @@ export default function HowItWorksSection({ adType }) {
           </h2>
           <p className="text-lg text-gray-600">
             {isVideo
-              ? 'Smart e-commerce teams have discovered the perfect solution to create winning ads. Then buy professional versions from our expert team.'
-              : 'Smart e-commerce teams have discovered the perfect solution: research winning ads, then buy professional versions from our expert team.'}
+              ? 'Adexxpress is built and managed by AGS, ensuring professional quality, fast delivery, and reliable support'
+              : 'Adexxpress is built and managed by AGS, ensuring professional quality, fast delivery, and reliable support'}
           </p>
         </div>
 
@@ -62,19 +62,19 @@ export default function HowItWorksSection({ adType }) {
                   </svg>
                 </div>
               )}
-              
+
               {/* Card */}
-              <div className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-shadow duration-300 relative z-10">
+              <div className="bg-white p-8 shadow-lg hover:shadow-xl transition-shadow duration-300 relative z-10">
                 {/* Icon Circle */}
-                <div className="w-20 h-20 rounded-full bg-gradient-to-br from-purple-600 to-indigo-600 flex items-center justify-center mx-auto mb-6 shadow-lg">
+                <div className="w-20 h-20 bg-gradient-to-br from-purple-600 to-indigo-600 flex items-center justify-center mx-auto mb-6 shadow-lg">
                   {step.icon}
                 </div>
-                
+
                 {/* Title */}
                 <h3 className="text-xl font-bold text-gray-900 mb-4 text-center">
                   {step.number}. {step.title}
                 </h3>
-                
+
                 {/* Description */}
                 <p className="text-gray-600 leading-relaxed text-center">
                   {step.description}

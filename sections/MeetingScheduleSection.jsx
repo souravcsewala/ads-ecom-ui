@@ -78,25 +78,25 @@ export default function MeetingScheduleSection() {
   };
 
   return (
-    <section id="meeting-schedule" className="py-20 bg-gradient-to-br from-purple-900 via-indigo-900 to-purple-800 w-full relative overflow-hidden">
+    <section id="meeting-schedule" className="py-10 md:py-20 bg-gradient-to-br from-purple-900 via-indigo-900 to-purple-800 w-full relative overflow-hidden">
       {/* Decorative Background Shapes */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         {/* Large Blurred Circles */}
-        <div className="absolute top-0 left-0 w-96 h-96 bg-purple-500/20 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-0 right-0 w-96 h-96 bg-indigo-500/20 rounded-full blur-3xl"></div>
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-pink-500/10 rounded-full blur-3xl"></div>
-        
+        <div className="absolute top-0 left-0 w-96 h-96 bg-purple-500/20 blur-3xl"></div>
+        <div className="absolute bottom-0 right-0 w-96 h-96 bg-indigo-500/20 blur-3xl"></div>
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-pink-500/10 blur-3xl"></div>
+
         {/* Geometric Shapes */}
-        <div className="absolute top-20 right-20 w-32 h-32 bg-purple-400/10 rounded-lg rotate-45 blur-xl"></div>
-        <div className="absolute bottom-32 left-32 w-24 h-24 bg-indigo-400/10 rounded-full blur-xl"></div>
-        <div className="absolute top-1/3 right-1/4 w-40 h-40 bg-purple-300/10 rounded-lg rotate-12 blur-2xl"></div>
-        <div className="absolute bottom-1/4 left-1/3 w-36 h-36 bg-pink-400/10 rounded-full blur-xl"></div>
-        
+        <div className="absolute top-20 right-20 w-32 h-32 bg-purple-400/10 rotate-45 blur-xl"></div>
+        <div className="absolute bottom-32 left-32 w-24 h-24 bg-indigo-400/10 blur-xl"></div>
+        <div className="absolute top-1/3 right-1/4 w-40 h-40 bg-purple-300/10 rotate-12 blur-2xl"></div>
+        <div className="absolute bottom-1/4 left-1/3 w-36 h-36 bg-pink-400/10 blur-xl"></div>
+
         {/* Animated Floating Shapes */}
-        <div className="absolute top-10 left-10 w-20 h-20 bg-purple-300/20 rounded-full blur-lg animate-pulse"></div>
-        <div className="absolute bottom-20 right-10 w-16 h-16 bg-indigo-300/20 rounded-full blur-lg animate-pulse" style={{ animationDelay: '1s' }}></div>
-        <div className="absolute top-1/2 right-1/4 w-12 h-12 bg-pink-300/20 rounded-full blur-md animate-pulse" style={{ animationDelay: '0.5s' }}></div>
-        
+        <div className="absolute top-10 left-10 w-20 h-20 bg-purple-300/20 blur-lg animate-pulse"></div>
+        <div className="absolute bottom-20 right-10 w-16 h-16 bg-indigo-300/20 blur-lg animate-pulse" style={{ animationDelay: '1s' }}></div>
+        <div className="absolute top-1/2 right-1/4 w-12 h-12 bg-pink-300/20 blur-md animate-pulse" style={{ animationDelay: '0.5s' }}></div>
+
         {/* Grid Pattern Overlay */}
         <div className="absolute inset-0 opacity-5" style={{
           backgroundImage: 'linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)',
@@ -117,15 +117,15 @@ export default function MeetingScheduleSection() {
           </div>
 
           {/* Right Side - Form */}
-          <div className="bg-white rounded-2xl shadow-2xl p-8 border-2 border-purple-200">
+          <div className="bg-white shadow-2xl p-8 border-2 border-purple-200">
             {success && (
-              <div className="mb-6 p-4 bg-green-50 border border-green-200 rounded-lg text-green-700 text-sm">
+              <div className="mb-6 p-4 bg-green-50 border border-green-200 text-green-700 text-sm">
                 ✓ Meeting request submitted successfully! We will contact you shortly to confirm the schedule.
               </div>
             )}
 
             {error && (
-              <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg text-red-700 text-sm">
+              <div className="mb-6 p-4 bg-red-50 border border-red-200 text-red-700 text-sm">
                 {error}
               </div>
             )}
@@ -142,7 +142,7 @@ export default function MeetingScheduleSection() {
                     onChange={(e) => handleInputChange('name', e.target.value)}
                     placeholder="Enter your full name"
                     required
-                    className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-purple-600 focus:outline-none transition-colors"
+                    className="w-full px-4 py-3 border-2 border-gray-200 focus:border-purple-600 focus:outline-none transition-colors"
                   />
                 </div>
 
@@ -156,7 +156,7 @@ export default function MeetingScheduleSection() {
                     onChange={(e) => handleInputChange('email', e.target.value)}
                     placeholder="Enter your email"
                     required
-                    className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-purple-600 focus:outline-none transition-colors"
+                    className="w-full px-4 py-3 border-2 border-gray-200 focus:border-purple-600 focus:outline-none transition-colors"
                   />
                 </div>
               </div>
@@ -172,7 +172,7 @@ export default function MeetingScheduleSection() {
                     onChange={(e) => handleInputChange('contact', e.target.value)}
                     placeholder="Enter your contact number"
                     required
-                    className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-purple-600 focus:outline-none transition-colors"
+                    className="w-full px-4 py-3 border-2 border-gray-200 focus:border-purple-600 focus:outline-none transition-colors"
                   />
                 </div>
 
@@ -185,7 +185,7 @@ export default function MeetingScheduleSection() {
                     value={formData.company}
                     onChange={(e) => handleInputChange('company', e.target.value)}
                     placeholder="Enter your company name (optional)"
-                    className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-purple-600 focus:outline-none transition-colors"
+                    className="w-full px-4 py-3 border-2 border-gray-200 focus:border-purple-600 focus:outline-none transition-colors"
                   />
                 </div>
               </div>
@@ -201,7 +201,7 @@ export default function MeetingScheduleSection() {
                     onChange={(e) => handleInputChange('meetingDate', e.target.value)}
                     min={getMinDate()}
                     required
-                    className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-purple-600 focus:outline-none transition-colors"
+                    className="w-full px-4 py-3 border-2 border-gray-200 focus:border-purple-600 focus:outline-none transition-colors"
                   />
                 </div>
 
@@ -214,7 +214,7 @@ export default function MeetingScheduleSection() {
                     value={formData.meetingTime}
                     onChange={(e) => handleInputChange('meetingTime', e.target.value)}
                     required
-                    className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-purple-600 focus:outline-none transition-colors"
+                    className="w-full px-4 py-3 border-2 border-gray-200 focus:border-purple-600 focus:outline-none transition-colors"
                   />
                 </div>
               </div>
@@ -228,14 +228,14 @@ export default function MeetingScheduleSection() {
                   onChange={(e) => handleInputChange('message', e.target.value)}
                   placeholder="Tell us about your requirements or any specific questions you'd like to discuss..."
                   rows={4}
-                  className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-purple-600 focus:outline-none transition-colors resize-y"
+                  className="w-full px-4 py-3 border-2 border-gray-200 focus:border-purple-600 focus:outline-none transition-colors resize-y"
                 />
               </div>
 
               <button
                 type="submit"
                 disabled={isLoading}
-                className="w-full px-8 py-4 bg-gradient-to-r from-purple-600 to-indigo-600 text-white rounded-lg font-semibold text-lg hover:from-purple-700 hover:to-indigo-700 transition-all shadow-md hover:shadow-lg cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+                className="w-full px-8 py-4 bg-gradient-to-r from-purple-600 to-indigo-600 text-white rounded-none font-semibold text-lg hover:from-purple-700 hover:to-indigo-700 transition-all shadow-md hover:shadow-lg cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {isLoading ? 'Submitting...' : 'Schedule Meeting'}
               </button>

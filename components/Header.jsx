@@ -1,5 +1,7 @@
 'use client';
 
+import Link from 'next/link';
+import Image from 'next/image';
 import { useState, useEffect } from 'react';
 import LoginModal from './LoginModal';
 
@@ -42,20 +44,26 @@ export default function Header() {
   return (
     <>
       <header
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-          isScrolled
-            ? 'bg-white/95 backdrop-blur-md shadow-lg'
-            : 'bg-white/80 backdrop-blur-sm'
-        }`}
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled
+          ? 'bg-white/95 backdrop-blur-md shadow-lg'
+          : 'bg-white/80 backdrop-blur-sm'
+          }`}
       >
         <nav className="container mx-auto px-6 py-4">
           {/* Desktop Menu */}
           <div className="hidden md:flex items-center justify-between">
             <div
-              className="text-2xl font-bold cursor-pointer text-purple-600"
+              className="cursor-pointer flex items-center"
               onClick={() => scrollToSection('hero')}
             >
-              BuyEcomAds
+              <Image
+                src="/Adxxpress logo.png"
+                alt="Adexxpress"
+                width={180}
+                height={48}
+                className="h-14 w-auto object-contain"
+                priority
+              />
             </div>
             <div className="flex items-center gap-8">
               <button
@@ -86,7 +94,7 @@ export default function Header() {
             <div className="flex items-center gap-4">
               <button
                 onClick={() => setIsLoginModalOpen(true)}
-                className="p-2 text-gray-700 hover:text-purple-600 transition-colors hover:bg-purple-50 rounded-lg"
+                className="p-2 text-gray-700 hover:text-purple-600 transition-colors hover:bg-purple-50 rounded-none"
                 aria-label="Login or Sign Up"
               >
                 <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -98,7 +106,7 @@ export default function Header() {
                   // Trigger buy modal via custom event
                   window.dispatchEvent(new CustomEvent('openBuyModal'));
                 }}
-                className="px-6 py-2 bg-gradient-to-r from-purple-600 to-indigo-600 text-white rounded-lg font-semibold hover:from-purple-700 hover:to-indigo-700 transition-all shadow-md hover:shadow-lg"
+                className="px-6 py-2 bg-gradient-to-r from-purple-600 to-indigo-600 text-white rounded-none font-semibold hover:from-purple-700 hover:to-indigo-700 transition-all shadow-md hover:shadow-lg"
               >
                 Buy Professional Ads
               </button>
@@ -108,17 +116,24 @@ export default function Header() {
           {/* Mobile Menu */}
           <div className="flex md:hidden items-center justify-between gap-2">
             <div
-              className="text-lg font-bold cursor-pointer text-purple-600 flex-shrink-0"
+              className="cursor-pointer flex-shrink-0 flex items-center"
               onClick={() => scrollToSection('hero')}
             >
-              BuyEcomAds
+              <Image
+                src="/Adxxpress logo.png"
+                alt="Adexxpress"
+                width={140}
+                height={38}
+                className="h-10 w-auto object-contain"
+                priority
+              />
             </div>
             <div className="flex items-center gap-2 flex-1 justify-end">
               <button
                 onClick={() => {
                   window.dispatchEvent(new CustomEvent('openBuyModal'));
                 }}
-                className="px-3 py-1.5 bg-gradient-to-r from-purple-600 to-indigo-600 text-white rounded-lg font-semibold text-xs hover:from-purple-700 hover:to-indigo-700 transition-all shadow-md whitespace-nowrap"
+                className="px-3 py-1.5 bg-gradient-to-r from-purple-600 to-indigo-600 text-white rounded-none font-semibold text-xs hover:from-purple-700 hover:to-indigo-700 transition-all shadow-md whitespace-nowrap"
               >
                 Buy Professional Ads
               </button>
@@ -144,16 +159,15 @@ export default function Header() {
 
       {/* Mobile Sidebar */}
       <div
-        className={`fixed inset-0 z-40 md:hidden transition-transform duration-300 ease-in-out ${
-          isMobileMenuOpen ? 'translate-x-0' : 'translate-x-full'
-        }`}
+        className={`fixed inset-0 z-40 md:hidden transition-transform duration-300 ease-in-out ${isMobileMenuOpen ? 'translate-x-0' : 'translate-x-full'
+          }`}
       >
         {/* Backdrop */}
         <div
           className="absolute inset-0 bg-black/50 backdrop-blur-sm"
           onClick={() => setIsMobileMenuOpen(false)}
         />
-        
+
         {/* Sidebar */}
         <div className="absolute right-0 top-0 h-full w-80 bg-white shadow-2xl overflow-y-auto">
           <div className="p-6">

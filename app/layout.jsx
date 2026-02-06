@@ -12,7 +12,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata = {
-  title: "BuyEcomAds - Professional E-Commerce Ads",
+  title: "Adexxpress - Professional E-Commerce Ads",
   description: "Buy professional e-commerce ads created by our expert team using AI tools. High-converting image and video ads for your campaigns.",
 };
 

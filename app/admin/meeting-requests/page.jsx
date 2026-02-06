@@ -17,15 +17,15 @@ export default function MeetingRequestsPage() {
   const fetchMeetingRequests = async () => {
     try {
       setIsLoading(true);
-      
+
       // Fetch both meeting requests and orders with meeting interest
       const [meetingRequestsResponse, ordersResponse] = await Promise.all([
         adminMeetingRequestApi.getAll(),
         adminOrderApi.getAll(),
       ]);
-      
+
       let allMeetings = [];
-      
+
       // Add meeting requests from MeetingRequest model
       if (meetingRequestsResponse.success && meetingRequestsResponse.meetingRequests) {
         const meetingReqs = meetingRequestsResponse.meetingRequests.map(req => ({
@@ -35,7 +35,7 @@ export default function MeetingRequestsPage() {
         }));
         allMeetings = [...allMeetings, ...meetingReqs];
       }
-      
+
       // Add meetings from orders (BuyFormModal and CustomPlanModal)
       if (ordersResponse.success && ordersResponse.orders) {
         const orderMeetings = ordersResponse.orders
@@ -51,8 +51,8 @@ export default function MeetingRequestsPage() {
             meetingDate: order.meetingDate,
             meetingTime: order.meetingTime,
             message: order.additionalNotes || order.generalInstructions || '',
-            status: order.status === 'completed' ? 'completed' : 
-                   order.status === 'cancelled' ? 'cancelled' : 'pending',
+            status: order.status === 'completed' ? 'completed' :
+              order.status === 'cancelled' ? 'cancelled' : 'pending',
             adminNotes: '',
             createdAt: order.createdAt,
             updatedAt: order.updatedAt,
@@ -62,15 +62,15 @@ export default function MeetingRequestsPage() {
           }));
         allMeetings = [...allMeetings, ...orderMeetings];
       }
-      
+
       // Apply status filter
       if (filterStatus !== 'all') {
         allMeetings = allMeetings.filter(req => req.status === filterStatus);
       }
-      
+
       // Sort by date (newest first)
       allMeetings.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
-      
+
       setMeetingRequests(allMeetings);
     } catch (error) {
       console.error('Error fetching meeting requests:', error);
@@ -106,7 +106,7 @@ export default function MeetingRequestsPage() {
     if (!confirm('Are you sure you want to delete this meeting request?')) {
       return;
     }
-    
+
     try {
       if (source === 'meeting-request') {
         const response = await adminMeetingRequestApi.delete(id);
@@ -198,51 +198,46 @@ export default function MeetingRequestsPage() {
       <div className="mb-6 flex gap-4 flex-wrap">
         <button
           onClick={() => setFilterStatus('all')}
-          className={`px-4 py-2 rounded-lg font-medium transition-colors ${
-            filterStatus === 'all'
+          className={`px-4 py-2 rounded-lg font-medium transition-colors ${filterStatus === 'all'
               ? 'bg-purple-600 text-white'
               : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
-          }`}
+            }`}
         >
           All
         </button>
         <button
           onClick={() => setFilterStatus('pending')}
-          className={`px-4 py-2 rounded-lg font-medium transition-colors ${
-            filterStatus === 'pending'
+          className={`px-4 py-2 rounded-lg font-medium transition-colors ${filterStatus === 'pending'
               ? 'bg-purple-600 text-white'
               : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
-          }`}
+            }`}
         >
           Pending
         </button>
         <button
           onClick={() => setFilterStatus('confirmed')}
-          className={`px-4 py-2 rounded-lg font-medium transition-colors ${
-            filterStatus === 'confirmed'
+          className={`px-4 py-2 rounded-lg font-medium transition-colors ${filterStatus === 'confirmed'
               ? 'bg-purple-600 text-white'
               : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
-          }`}
+            }`}
         >
           Confirmed
         </button>
         <button
           onClick={() => setFilterStatus('completed')}
-          className={`px-4 py-2 rounded-lg font-medium transition-colors ${
-            filterStatus === 'completed'
+          className={`px-4 py-2 rounded-lg font-medium transition-colors ${filterStatus === 'completed'
               ? 'bg-purple-600 text-white'
               : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
-          }`}
+            }`}
         >
           Completed
         </button>
         <button
           onClick={() => setFilterStatus('cancelled')}
-          className={`px-4 py-2 rounded-lg font-medium transition-colors ${
-            filterStatus === 'cancelled'
+          className={`px-4 py-2 rounded-lg font-medium transition-colors ${filterStatus === 'cancelled'
               ? 'bg-purple-600 text-white'
               : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
-          }`}
+            }`}
         >
           Cancelled
         </button>
@@ -257,7 +252,7 @@ export default function MeetingRequestsPage() {
                 Customer
               </th>
               <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                Meeting Date & Time
+                Meeting Date &amp; Time
               </th>
               <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                 Contact
@@ -282,7 +277,7 @@ export default function MeetingRequestsPage() {
                 const meetingDateTime = new Date(`${request.meetingDate}T${request.meetingTime || '00:00'}`);
                 const isUpcoming = meetingDateTime >= new Date();
                 const source = request.source || 'meeting-request';
-                
+
                 return (
                   <tr key={request._id || request.id} className={isUpcoming ? 'bg-green-50' : ''}>
                     <td className="px-6 py-4 whitespace-nowrap">

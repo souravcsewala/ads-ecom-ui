@@ -8,7 +8,7 @@ export default function BuyFormModal({ isOpen, onClose, adType, planName, planPr
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState(false);
-  
+
   // Initialize form data with default single ad
   const getInitialFormData = (adsCount = 1) => ({
     // Step 1 fields
@@ -35,7 +35,7 @@ export default function BuyFormModal({ isOpen, onClose, adType, planName, planPr
   const [formData, setFormData] = useState(getInitialFormData());
 
   const isVideo = adType === 'video';
-  
+
   // Determine plan type: if planId exists, it's a standard plan, otherwise custom
   const planType = planId ? 'standard' : 'custom';
 
@@ -146,17 +146,17 @@ export default function BuyFormModal({ isOpen, onClose, adType, planName, planPr
           }
         }
       }
-      
+
       const sanitizedAds =
         formData.ads && formData.ads.length > 0
           ? formData.ads
           : [
-              {
-                referenceImageUrl: '',
-                productPageUrl: '',
-                specificInstructions: '',
-              },
-            ];
+            {
+              referenceImageUrl: '',
+              productPageUrl: '',
+              specificInstructions: '',
+            },
+          ];
 
       const mappedAds = sanitizedAds.map((ad, idx) => ({
         referenceImageUrl:
@@ -214,7 +214,7 @@ export default function BuyFormModal({ isOpen, onClose, adType, planName, planPr
       if (response.success) {
         setSuccess(true);
         console.log('Order created successfully:', response.order);
-        
+
         // Reset form after success
         setTimeout(() => {
           setStep(1);
@@ -244,14 +244,14 @@ export default function BuyFormModal({ isOpen, onClose, adType, planName, planPr
     } catch (error) {
       // Extract error message from various possible locations
       let errorMessage = 'Failed to submit order. Please check your connection and try again.';
-      
+
       if (error.response) {
         // Server responded with error
         const responseData = error.response.data;
-        errorMessage = responseData?.message || 
-                      responseData?.error || 
-                      `Server error: ${error.response.status} ${error.response.statusText}`;
-        
+        errorMessage = responseData?.message ||
+          responseData?.error ||
+          `Server error: ${error.response.status} ${error.response.statusText}`;
+
         console.error('Order submission error (Server Response):', {
           message: errorMessage,
           status: error.response.status,
@@ -273,7 +273,7 @@ export default function BuyFormModal({ isOpen, onClose, adType, planName, planPr
           stack: error.stack,
         });
       }
-      
+
       setError(errorMessage);
     } finally {
       setIsLoading(false);
@@ -342,7 +342,7 @@ export default function BuyFormModal({ isOpen, onClose, adType, planName, planPr
               Order submitted successfully! Redirecting...
             </div>
           )}
-          <form 
+          <form
             onSubmit={(e) => {
               e.preventDefault();
               e.stopPropagation();
@@ -408,7 +408,7 @@ export default function BuyFormModal({ isOpen, onClose, adType, planName, planPr
                     Brand Assets Link
                     <button
                       type="button"
-                      className="ml-2 w-5 h-5 rounded-full bg-gray-200 hover:bg-gray-300 flex items-center justify-center text-xs text-gray-600"
+                      className="ml-2 w-5 h-5 rounded-none bg-gray-200 hover:bg-gray-300 flex items-center justify-center text-xs text-gray-600"
                       title="Share any link (Drive, Dropbox, Notion, etc.) that contains your brand assets"
                     >
                       ?
@@ -512,7 +512,7 @@ export default function BuyFormModal({ isOpen, onClose, adType, planName, planPr
                         </div>
                         <ul className="text-sm text-gray-700 space-y-1 list-disc list-inside ml-7">
                           <li>What are your brand colors and visual style preferences?</li>
-                          <li>What's your brand tone and personality (professional, playful, luxury, etc.)?</li>
+                          <li>What&apos;s your brand tone and personality (professional, playful, luxury, etc.)?</li>
                           <li>Are there any design elements or styles you want to avoid?</li>
                           <li>Who is your target audience for this specific ad?</li>
                           <li>What call-to-action do you want? (e.g., "Shop Now", "Learn More", "Sign Up")</li>
@@ -534,7 +534,7 @@ export default function BuyFormModal({ isOpen, onClose, adType, planName, planPr
                 <button
                   type="button"
                   onClick={addAnotherAd}
-                  className="w-full py-3 border-2 border-dashed border-gray-300 rounded-lg text-gray-700 font-medium hover:border-purple-600 hover:text-purple-600 hover:bg-purple-50 transition-all"
+                  className="w-full py-3 border-2 border-dashed border-gray-300 rounded-none text-gray-700 font-medium hover:border-purple-600 hover:text-purple-600 hover:bg-purple-50 transition-all"
                 >
                   + Add Another {isVideo ? 'Video' : 'Image'} Ad
                 </button>
@@ -689,7 +689,7 @@ export default function BuyFormModal({ isOpen, onClose, adType, planName, planPr
               <button
                 type="button"
                 onClick={step === 1 ? handleClose : handleBack}
-                className="px-6 py-3 border-2 border-gray-300 text-gray-700 rounded-lg font-semibold hover:border-gray-400 hover:bg-gray-50 transition-all"
+                className="px-6 py-3 border-2 border-gray-300 text-gray-700 rounded-none font-semibold hover:border-gray-400 hover:bg-gray-50 transition-all"
               >
                 {step === 1 ? 'Cancel' : 'Back'}
               </button>
@@ -701,7 +701,7 @@ export default function BuyFormModal({ isOpen, onClose, adType, planName, planPr
                     e.stopPropagation();
                     handleNext(e);
                   }}
-                  className="px-8 py-3 bg-gradient-to-r from-purple-600 to-indigo-600 text-white rounded-lg font-semibold hover:from-purple-700 hover:to-indigo-700 transition-all shadow-md hover:shadow-lg"
+                  className="px-8 py-3 bg-gradient-to-r from-purple-600 to-indigo-600 text-white rounded-none font-semibold hover:from-purple-700 hover:to-indigo-700 transition-all shadow-md hover:shadow-lg"
                 >
                   Next
                 </button>
@@ -709,7 +709,7 @@ export default function BuyFormModal({ isOpen, onClose, adType, planName, planPr
                 <button
                   type="submit"
                   disabled={isLoading}
-                  className="px-8 py-3 bg-gradient-to-r from-green-500 to-emerald-600 text-white rounded-lg font-semibold hover:from-green-600 hover:to-emerald-700 transition-all shadow-md hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="px-8 py-3 bg-gradient-to-r from-green-500 to-emerald-600 text-white rounded-none font-semibold hover:from-green-600 hover:to-emerald-700 transition-all shadow-md hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   {isLoading ? 'Submitting...' : 'Submit Order'}
                 </button>
